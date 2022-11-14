@@ -1,7 +1,7 @@
 using Unity.Entities;
 using ProjectM;
 
-namespace Servant;
+namespace Systems.Servant;
 
 public static class Injury {
     // DivideProgressBy of servant injury.

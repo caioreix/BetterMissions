@@ -2,7 +2,7 @@ using Unity.Entities;
 using Unity.Collections;
 using ProjectM;
 
-namespace Servant;
+namespace Systems.Servant;
 
 public static class Mission {
     // GetEntities of component type ActiveServantMission.
