@@ -1,59 +1,65 @@
 ﻿using BepInEx;
+using BepInEx.Logging;
+using BepInEx.Configuration;
 using BepInEx.IL2CPP;
 using HarmonyLib;
 using Wetstone.API;
 using Database;
+using Logger;
 
 namespace MissionControl;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("xyz.molenzwiebel.wetstone")]
 public class Plugin : BasePlugin {
-    public static Harmony harmony;
-
     public override void Load() {
-        global::Config.Log.Logger = this.Log;
-        global::Config.Env.Config = this.Config;
-
-        var wType = getWorldType();
-
-        global::Config.Env.Load();
-        global::Config.Log.Load(wType);
-
-        if (VWorld.IsServer) {
-            DB.Config();
-            DB.Load();
-
-            harmony = new Harmony(PluginInfo.PLUGIN_GUID);
-
-            global::Config.Log.Trace("Patching harmony");
-            harmony.PatchAll();
-
-            global::Config.Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} server site is loaded!");
-        }
-
-        if (VWorld.IsClient) {
-            global::Config.Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} client side is loaded!");
-        }
+        if (VWorld.IsServer) Server.Load(this.Config, this.Log);
+        if (VWorld.IsClient) Client.Load(this.Config, this.Log);
     }
 
     public override bool Unload() {
-        harmony.UnpatchSelf();
-        DB.Save();
+        if (VWorld.IsServer) Server.Unload();
+        if (VWorld.IsClient) Client.Unload();
 
-        global::Config.Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} is unloaded!");
-        return true;
-    }
-
-    private static string getWorldType() {
-        if (VWorld.IsClient) {
-            return "Client";
-        }
-        if (VWorld.IsServer) {
-            return "Server";
-        }
-
-        return "Untyped";
+        return false;
     }
 }
 
+internal static class Server {
+    public static Harmony harmony;
+    internal static void Load(ConfigFile config, ManualLogSource logger) {
+        Settings.Config.Load(config);
+        Logger.Config.Load(logger, "Server", global::Settings.Env.LogOnTempFile.Value, global::Settings.Env.EnableTraceLogs.Value);
+
+        DB.Config();
+        DB.Load();
+
+        harmony = new Harmony(PluginInfo.PLUGIN_GUID);
+
+        Log.Trace("Patching harmony");
+        harmony.PatchAll();
+
+        Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} server side is loaded!");
+    }
+
+    internal static bool Unload() {
+        harmony.UnpatchSelf();
+        DB.Save();
+
+        Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} server side is unloaded!");
+        return true;
+    }
+}
+
+internal static class Client {
+    internal static void Load(ConfigFile config, ManualLogSource logger) {
+        Settings.Config.Load(config);
+        Logger.Config.Load(logger, "Client", global::Settings.Env.LogOnTempFile.Value, global::Settings.Env.EnableTraceLogs.Value);
+
+        Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} client side is loaded!");
+    }
+
+    internal static void Unload() {
+        Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} client side is unloaded!");
+    }
+}

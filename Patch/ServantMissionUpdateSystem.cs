@@ -1,5 +1,5 @@
 using HarmonyLib;
-using Config;
+using Logger;
 using ProjectM.Shared.Systems;
 
 namespace Patch;

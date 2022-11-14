@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.IO;
 using MissionControl;
-using Config;
+using Logger;
 
 namespace Database;
 
@@ -51,10 +51,10 @@ public static class DB {
         string json = File.ReadAllText(filePath);
         try {
             data = JsonSerializer.Deserialize<T>(json);
-            Log.Info($"{fileName} DB Populated");
+            Log.Trace($"{fileName} DB Populated");
         } catch {
             data = new T();
-            Log.Info($"{fileName} DB Created");
+            Log.Trace($"{fileName} DB Created");
         }
     }
 };
