@@ -20,6 +20,7 @@
   <ItemGroup>
     <PackageReference Include="BepInEx.IL2CPP" Version="6.0.0-*" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+    <PackageReference Include="System.Text.Json" Version="7.0.0" />
     <PackageReference Include="Wetstone" Version="1.2.0" />
 
     <Reference Include="IL2Cppmscorlib">

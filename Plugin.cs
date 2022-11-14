@@ -2,6 +2,7 @@
 using BepInEx.IL2CPP;
 using HarmonyLib;
 using Wetstone.API;
+using Database;
 
 namespace MissionControl;
 
@@ -18,16 +19,15 @@ public class Plugin : BasePlugin {
 
         global::Config.Env.Load();
         global::Config.Log.Load(wType);
-        global::Config.Log.Trace("Loaded...");
-
 
         if (VWorld.IsServer) {
+            DB.Config();
+            DB.Load();
+
             harmony = new Harmony(PluginInfo.PLUGIN_GUID);
 
             global::Config.Log.Trace("Patching harmony");
             harmony.PatchAll();
-            global::Config.Log.Trace("Finished Patching harmony");
-
 
             global::Config.Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} server site is loaded!");
         }
@@ -39,6 +39,7 @@ public class Plugin : BasePlugin {
 
     public override bool Unload() {
         harmony.UnpatchSelf();
+        DB.Save();
 
         global::Config.Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} is unloaded!");
         return true;
