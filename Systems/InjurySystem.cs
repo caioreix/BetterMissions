@@ -1,12 +1,13 @@
 using Unity.Entities;
 using ProjectM;
+using Entities;
 
-namespace Systems.Servant;
+namespace Systems;
 
 public static class Injury {
     // DivideProgressBy of servant injury.
     public static void DivideProgressBy(EntityManager em, int reduction) {
-        var coffinEntities = Station.GetEntities(em);
+        var coffinEntities = ServantCoffin.GetEntities(em);
 
         foreach (var coffinEntity in coffinEntities) {
             var coffinStation = em.GetComponentData<ServantCoffinstation>(coffinEntity);

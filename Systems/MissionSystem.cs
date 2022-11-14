@@ -2,17 +2,9 @@ using Unity.Entities;
 using Unity.Collections;
 using ProjectM;
 
-namespace Systems.Servant;
+namespace Systems;
 
 public static class Mission {
-    // GetEntities of component type ActiveServantMission.
-    public static NativeArray<Entity> GetEntities(EntityManager em) {
-        var servantMissionsQuery = em.CreateEntityQuery(
-                ComponentType.ReadWrite<ActiveServantMission>()
-            );
-        return servantMissionsQuery.ToEntityArray(Allocator.Temp);
-    }
-
     // DivideProgressBy of servant missions.
     public static void DivideProgressBy(EntityManager em, Entity missionEntity, int reduction) {
         var missionBuffer = em.GetBuffer<ActiveServantMission>(missionEntity);
