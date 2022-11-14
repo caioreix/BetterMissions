@@ -4,7 +4,6 @@ using ProjectM;
 using Settings;
 using Entities;
 using Logger;
-using System.Collections.Generic;
 using Unity.Collections;
 
 namespace Systems;
