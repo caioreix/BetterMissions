@@ -3,11 +3,13 @@ using BepInEx.Configuration;
 namespace Settings;
 
 public class Env {
+    // SERVER
     public static ConfigEntry<float> MissionReduceRate;
     public static ConfigEntry<bool> OfflineMissionProgress;
     public static ConfigEntry<float> InjuryReduceRate;
     public static ConfigEntry<bool> OfflineInjuryProgress;
 
+    // DEBUG
     public static ConfigEntry<bool> LogOnTempFile;
     public static ConfigEntry<bool> EnableTraceLogs;
 
@@ -17,7 +19,7 @@ public class Env {
             "Server",
             "MissionReduceRate",
             2F,
-            "Define the mission reduce divisor. Ex: if you set 2, 2 hours will be 1 hour"
+            "Define the mission reduce divisor. Ex: if you set 2, 2 hours will be 1 hour (0 will be replaced by 1)"
         );
 
         OfflineMissionProgress = Config.cfg.Bind(
@@ -31,7 +33,7 @@ public class Env {
             "Server",
             "InjuryReduceRate",
             2F,
-            "Define the injury reduce divisor. Ex: if you set 2, 2 hours will be 1 hour"
+            "Define the injury reduce divisor. Ex: if you set 2, 2 hours will be 1 hour (0 will be replaced by 1)"
         );
 
         OfflineInjuryProgress = Config.cfg.Bind(
@@ -54,5 +56,14 @@ public class Env {
             false,
             "Enabled, will print Trace logs (Debug output in BepInEx)"
         );
+
+        validateValues();
+    }
+
+    private static void validateValues() {
+        if (MissionReduceRate.Value == 0) MissionReduceRate.Value = 1;
+        if (InjuryReduceRate.Value == 0) InjuryReduceRate.Value = 1;
+
+        Config.cfg.Save();
     }
 }
