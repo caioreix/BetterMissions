@@ -26,19 +26,19 @@ public static class Mission {
 
     private static void garbageCollector(EntityManager em, NativeArray<Entity> missionEntities) {
         foreach (var missionProgress in Database.Mission.Progress) {
-            if (!existMissionKey(em, missionEntities, missionProgress)) {
-
-                Database.Mission.Progress.TryRemove(missionProgress.Key, out _);
-                Log.Trace($"Garbage mission remove: {missionProgress.Key}");
+            var key = missionProgress.Key;
+            if (!existMissionKey(em, missionEntities, key)) {
+                Database.Mission.Progress.TryRemove(key, out _);
+                Log.Trace($"Garbage mission remove: {key}");
             }
         }
     }
 
-    private static bool existMissionKey(EntityManager em, NativeArray<Entity> missionEntities, KeyValuePair<string, long> missionProgress) {
+    private static bool existMissionKey(EntityManager em, NativeArray<Entity> missionEntities, string key) {
         foreach (var missionEntity in missionEntities) {
             var missionBuffer = em.GetBuffer<ActiveServantMission>(missionEntity);
-            for (int i = 0; i < missionBuffer.Length; i++) {
-                if (missionBuffer[i].MissionID.ToString() == missionProgress.Key) {
+            foreach (var mission in missionBuffer) {
+                if (getMissionKey(mission) == key) {
                     return true;
                 }
             }
@@ -46,43 +46,60 @@ public static class Mission {
         return false;
     }
 
+    private static string getMissionKey(ActiveServantMission mission) {
+        return mission.MissionID.ToString();
+    }
+
     private static void reduceNewMissionsTimeProgress(EntityManager em, Entity missionEntity, float reduction) {
         var missionBuffer = em.GetBuffer<ActiveServantMission>(missionEntity);
 
         for (int i = 0; i < missionBuffer.Length; i++) {
             var mission = missionBuffer[i];
-            var currentTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
+            var key = getMissionKey(mission);
 
-            if (missionAlreadyFinished(ref mission, currentTimestamp)) {
+
+            if (missionAlreadyFinished(ref mission, key)) {
                 missionBuffer[i] = mission;
                 continue;
             }
 
-            reduceMissionProgress(ref mission, reduction);
+            reduceMissionProgress(ref mission, key, reduction);
             missionBuffer[i] = mission;
         }
     }
 
-    private static bool missionAlreadyFinished(ref ActiveServantMission mission, long currentTimestamp) {
-        if (Database.Mission.Progress.TryGetValue(mission.MissionID.ToString(), out long timestamp)) {
-            if (Env.OfflineMissionProgress.Value && currentTimestamp >= timestamp) {
-                mission.MissionLength = 0;
+    private static bool missionAlreadyFinished(ref ActiveServantMission mission, string key) {
+        var currentTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
 
-                Database.Mission.Progress.TryRemove(mission.MissionID.ToString(), out _);
-                Log.Trace($"Finished mission remove: {mission.MissionID.ToString()}");
+        if (Database.Mission.Progress.TryGetValue(key, out long timestamp)) {
+            if (Env.OfflineMissionProgress.Value && currentTimestamp >= timestamp) {
+                setMissionLength(ref mission, 0);
+
+                Database.Mission.Progress.TryRemove(key, out _);
+                Log.Trace($"Finished mission remove: {key}");
             }
             return true;
         }
         return false;
     }
 
-    private static void reduceMissionProgress(ref ActiveServantMission mission, float reduction) {
-        mission.MissionLength /= reduction;
+    private static float getMissionLength(ActiveServantMission mission) {
+        return mission.MissionLength;
+    }
 
+    private static void setMissionLength(ref ActiveServantMission mission, float value) {
+        mission.MissionLength = value;
+    }
+
+    private static void reduceMissionProgress(ref ActiveServantMission mission, string key, float reduction) {
+        var newMissionLength = getMissionLength(mission) / reduction;
+        setMissionLength(ref mission, newMissionLength);
+
+        var newEndTimestamp = DateTimeOffset.Now.AddSeconds(getMissionLength(mission)).ToUnixTimeSeconds();
         Database.Mission.Progress.TryAdd(
-            mission.MissionID.ToString(),
-            DateTimeOffset.Now.AddSeconds(mission.MissionLength).ToUnixTimeSeconds()
+            key,
+            newEndTimestamp
         );
-        Log.Trace($"New mission added: {mission.MissionID.ToString()}: {DateTimeOffset.Now.AddSeconds(mission.MissionLength).ToUnixTimeSeconds()}");
+        Log.Trace($"New mission added: {key}: {newEndTimestamp}");
     }
 }
