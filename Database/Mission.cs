@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace Database;
 
 public static class Mission {
     private static string category = nameof(Mission);
 
-    public static Dictionary<string, string> Progress;
+    public static ConcurrentDictionary<string, long> Progress;
 
     internal static void save() {
         DB.save($"{category}{nameof(Progress)}", Progress, DB.Pretty_JSON_options);

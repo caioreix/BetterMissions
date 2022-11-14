@@ -1,5 +1,7 @@
+using System;
 using HarmonyLib;
 using ProjectM;
+using Logger;
 using Database;
 
 namespace Patch;
@@ -10,7 +12,9 @@ public class TriggerPersistenceSaveSystemPatch {
     [HarmonyPatch(typeof(TriggerPersistenceSaveSystem), nameof(TriggerPersistenceSaveSystem.TriggerSave))]
     public class TriggerSave {
         public static void Prefix() {
-            DB.Save();
+            try {
+                DB.Save();
+            } catch (Exception e) { Log.Fatal(e); }
         }
     }
 }
