@@ -25,7 +25,7 @@ public class ServantMissionUpdateSystemPatch {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
                 Systems.Mission.ReduceAllNewMissionsTimeProgress(__instance.EntityManager, Env.MissionReduceRate.Value);
-                // Systems.Injury.ReduceAllNewInjuriesTimeProgress(__instance.EntityManager, Env.InjuryReduceRate.Value);
+                Systems.Injury.ReduceAllNewInjuriesTimeProgress(__instance.EntityManager, Env.InjuryReduceRate.Value);
             } catch (Exception e) { Log.Fatal(e); }
         }
     }
