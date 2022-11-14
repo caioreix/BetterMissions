@@ -26,13 +26,13 @@ public static class DB {
     }
 
     public static void Load() {
-        Mission.Load();
+        Mission.load();
 
         Log.Info("All database is now loaded.");
     }
 
     public static void Save() {
-        Mission.Save();
+        Mission.save();
 
         Log.Info("All database saved to JSON file.");
     }
