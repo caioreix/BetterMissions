@@ -38,6 +38,14 @@
       <HintPath>$(UnhollowedDllPath)\ProjectM.dll</HintPath>
     </Reference>
 
+    <Reference Include="ProjectM.CodeGeneration">
+      <HintPath>$(UnhollowedDllPath)\ProjectM.CodeGeneration.dll</HintPath>
+    </Reference>
+
+    <Reference Include="ProjectM.Gameplay.Systems">
+      <HintPath>$(UnhollowedDllPath)\ProjectM.Gameplay.Systems.dll</HintPath>
+    </Reference>
+
     <Reference Include="Unity.Collections">
       <HintPath>$(UnhollowedDllPath)\Unity.Collections.dll</HintPath>
     </Reference>

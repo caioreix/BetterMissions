@@ -7,12 +7,10 @@ namespace MissionControl;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("xyz.molenzwiebel.wetstone")]
-public class Plugin : BasePlugin
-{
+public class Plugin : BasePlugin {
     public static Harmony harmony;
 
-    public override void Load()
-    {
+    public override void Load() {
         global::Config.Log.Logger = this.Log;
         global::Config.Env.Config = this.Config;
 
@@ -20,38 +18,37 @@ public class Plugin : BasePlugin
 
         global::Config.Env.Load();
         global::Config.Log.Load(wType);
+        global::Config.Log.Trace("Loaded...");
 
-        if (VWorld.IsServer)
-        {
+
+        if (VWorld.IsServer) {
             harmony = new Harmony(PluginInfo.PLUGIN_GUID);
 
+            global::Config.Log.Trace("Patching harmony");
             harmony.PatchAll();
+            global::Config.Log.Trace("Finished Patching harmony");
+
 
             global::Config.Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} server site is loaded!");
         }
 
-        if (VWorld.IsClient)
-        {
+        if (VWorld.IsClient) {
             global::Config.Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} client side is loaded!");
         }
     }
 
-    public override bool Unload()
-    {
+    public override bool Unload() {
         harmony.UnpatchSelf();
 
         global::Config.Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} is unloaded!");
         return true;
     }
 
-    private static string getWorldType()
-    {
-        if (VWorld.IsClient)
-        {
+    private static string getWorldType() {
+        if (VWorld.IsClient) {
             return "Client";
         }
-        if (VWorld.IsServer)
-        {
+        if (VWorld.IsServer) {
             return "Server";
         }
 
