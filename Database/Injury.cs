@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace Database;
 
-public static class Mission {
-    private static string category = nameof(Mission);
+public static class Injury {
+    private static string category = nameof(Injury);
 
     public static Dictionary<string, string> Progress;
 
