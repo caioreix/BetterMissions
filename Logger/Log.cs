@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Logger;
 
 public class Log {
@@ -50,4 +53,31 @@ public class Log {
             Config.logFile(data, "Trace  ");
         }
     }
+
+    public static void Struct<T>(T data) {
+        if (Config.traceLevel) {
+            var msg = structToString(data);
+            Config.logger.LogDebug(msg);
+            Config.logFile(msg, "Struct ");
+        }
+    }
+
+    private static string structToString<T>(T data) {
+        var type = data.GetType();
+        var fields = type.GetFields();
+        var properties = type.GetProperties();
+
+        var values = new Dictionary<string, object>();
+        values.TryAdd("StructType", type.ToString());
+
+        Array.ForEach(fields, (field) => values.TryAdd(field.Name, field.GetValue(data)));
+
+        var lines = new List<string>();
+        foreach (var value in values) {
+            lines.Add($"\"{value.Key}\":\"{value.Value}\"");
+        }
+
+        return "{" + String.Join(", ", lines) + "}";
+    }
 }
+
