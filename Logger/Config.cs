@@ -26,7 +26,7 @@ public class Config {
     internal static void logFile(object data, string level, string prefix = "") {
         if (logOnFile) {
             using (StreamWriter w = File.AppendText(tempLogFile)) {
-                var msg = $"{prefix}{DateTime.Now.ToString("hh:mm:ss")} [{PluginInfo.PLUGIN_GUID}: {level}]: {data}";
+                var msg = $"{prefix}{DateTime.Now.ToString("hh:mm:ss")} [{level} {PluginInfo.PLUGIN_GUID}]: {data}";
                 w.WriteLine(msg);
             }
         }

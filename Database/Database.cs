@@ -27,14 +27,12 @@ public static class DB {
 
     public static void Load() {
         Mission.load();
-        Injury.load();
 
         Log.Info("All database is now loaded.");
     }
 
     public static void Save() {
         Mission.save();
-        Injury.save();
 
         Log.Info("All database saved to JSON file.");
     }

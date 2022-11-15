@@ -4,7 +4,7 @@ using ProjectM;
 using Logger;
 using Database;
 
-namespace Patch;
+namespace Hooks;
 
 [HarmonyPatch]
 

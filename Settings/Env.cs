@@ -6,8 +6,6 @@ public class Env {
     // SERVER
     public static ConfigEntry<float> MissionReduceRate;
     public static ConfigEntry<bool> OfflineMissionProgress;
-    public static ConfigEntry<float> InjuryReduceRate;
-    public static ConfigEntry<bool> OfflineInjuryProgress;
 
     // DEBUG
     public static ConfigEntry<bool> LogOnTempFile;
@@ -25,20 +23,6 @@ public class Env {
         OfflineMissionProgress = Config.cfg.Bind(
            "Server",
            "OfflineMissionProgress",
-           true,
-           "Enabled, mission progress will be loaded even with the server offline."
-       );
-
-        InjuryReduceRate = Config.cfg.Bind(
-            "Server",
-            "InjuryReduceRate",
-            2F,
-            "Define the injury reduce divisor. Ex: if you set 2, 2 hours will be 1 hour (0 will be replaced by 1)"
-        );
-
-        OfflineInjuryProgress = Config.cfg.Bind(
-           "Server",
-           "OfflineInjuryProgress",
            true,
            "Enabled, mission progress will be loaded even with the server offline."
        );
@@ -62,7 +46,6 @@ public class Env {
 
     private static void validateValues() {
         if (MissionReduceRate.Value == 0) MissionReduceRate.Value = 1;
-        if (InjuryReduceRate.Value == 0) InjuryReduceRate.Value = 1;
 
         Config.cfg.Save();
     }

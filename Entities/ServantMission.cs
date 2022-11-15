@@ -1,14 +1,13 @@
 using Unity.Entities;
 using Unity.Collections;
-using ProjectM;
 
 namespace Entities;
 
-public static class ServantMission {
+public static class ActiveServantMission {
     // GetEntities of component type ActiveServantMission.
     public static NativeArray<Entity> GetEntities(EntityManager em) {
         var servantMissionsQuery = em.CreateEntityQuery(
-                ComponentType.ReadWrite<ActiveServantMission>()
+                ComponentType.ReadWrite<ProjectM.ActiveServantMission>()
             );
         return servantMissionsQuery.ToEntityArray(Allocator.Temp);
     }

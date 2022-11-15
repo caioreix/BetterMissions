@@ -6,6 +6,7 @@ using HarmonyLib;
 using Wetstone.API;
 using Database;
 using Logger;
+using Unity.Entities;
 
 namespace MissionControl;
 
@@ -25,7 +26,7 @@ public class Plugin : BasePlugin {
     }
 }
 
-internal static class Server {
+public static class Server {
     public static Harmony harmony;
     internal static void Load(ConfigFile config, ManualLogSource logger) {
         Settings.Config.Load(config);
@@ -48,6 +49,27 @@ internal static class Server {
 
         Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} server side is unloaded!");
         return true;
+    }
+
+    private static World _serverWorld;
+    public static World World {
+        get {
+            if (_serverWorld != null) return _serverWorld;
+
+            _serverWorld = getWorld("Server")
+                ?? throw new System.Exception("There is no Server world (yet). Did you install a server mod on the client?");
+            return _serverWorld;
+        }
+    }
+
+    private static World getWorld(string name) {
+        foreach (var world in World.s_AllWorlds) {
+            if (world.Name == name) {
+                return world;
+            }
+        }
+
+        return null;
     }
 }
 
