@@ -3,10 +3,10 @@ schemaVersion = "0.0.1"
 
 [package]
 namespace = "caioreix"
-name = "MissionControl"
+name = "BetterMissions"
 versionNumber = "1.0.0"
 description = "An VRising mod to do a better control of the servant missions."
-websiteUrl = "https://github.com/caioreix/MissionControl"
+websiteUrl = "https://github.com/caioreix/BetterMissions"
 containsNsfwContent = false
 
 [package.dependencies]

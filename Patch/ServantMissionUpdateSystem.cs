@@ -5,7 +5,7 @@ using Logger;
 using Settings;
 using Database;
 
-namespace Patch;
+namespace Hooks;
 
 [HarmonyPatch]
 

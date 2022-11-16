@@ -1,11 +1,11 @@
 using ProjectM;
-using MissionControl;
+using Entities;
 
 namespace Hooks;
 
 public static class PrefabCollectionSystemPatch {
     public static string GetPrefabName(PrefabGUID hashCode) {
-        var s = Server.World.GetExistingSystem<PrefabCollectionSystem>();
+        var s = World.Server.GetExistingSystem<PrefabCollectionSystem>();
         string name = "Nonexistent";
         if (hashCode.GuidHash == 0) {
             return name;
