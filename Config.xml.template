@@ -1,6 +1,5 @@
 ﻿<Project>
   <PropertyGroup>
-    <UnhollowedDllPath>C:\VRisingPath\BepInEx\unhollowed\</UnhollowedDllPath>
     <BuildDestinationFolder>C:\VRisingPath\BepInEx\plugins\</BuildDestinationFolder>
   </PropertyGroup>
 </Project>

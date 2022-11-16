@@ -9,10 +9,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <Import Project="Config.xml" />
+  <Target Name="Thunderstore Copy to Dist" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
+    <Copy SourceFiles="$(OutDir)$(ProjectName).dll" DestinationFolder="./dist" />
+  </Target>
 
-  <Target Name="CopyDLLs" AfterTargets="Build">
-    <Message Text="Copy build DLLs -> $(BuildDestinationFolder)" Importance="High" />
+  <Import Project="Config.xml" Condition=" '$(Configuration)' == 'Debug'" />
+  <Target Name="CopyDLLs" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug'">
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildDestinationFolder)" />
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="./dist" />
   </Target>
@@ -21,62 +23,7 @@
     <PackageReference Include="BepInEx.IL2CPP" Version="6.0.0-*" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
+    <PackageReference Include="VRising.Unhollowed.Client" Version="0.5.42584" />
     <PackageReference Include="Wetstone" Version="1.2.0" />
-
-    <Reference Include="IL2Cppmscorlib">
-      <HintPath>$(UnhollowedDllPath)\Il2Cppmscorlib.dll</HintPath>
-    </Reference>
-
-    <Reference Include="Il2CppSystem">
-      <HintPath>$(UnhollowedDllPath)\Il2CppSystem.dll</HintPath>
-    </Reference>
-
-    <Reference Include="ProjectM.Shared">
-      <HintPath>$(UnhollowedDllPath)\ProjectM.Shared.dll</HintPath>
-    </Reference>
-
-    <Reference Include="ProjectM">
-      <HintPath>$(UnhollowedDllPath)\ProjectM.dll</HintPath>
-    </Reference>
-
-    <Reference Include="ProjectM.CodeGeneration">
-      <HintPath>$(UnhollowedDllPath)\ProjectM.CodeGeneration.dll</HintPath>
-    </Reference>
-
-    <Reference Include="ProjectM.Gameplay.Systems">
-      <HintPath>$(UnhollowedDllPath)\ProjectM.Gameplay.Systems.dll</HintPath>
-    </Reference>
-
-    <Reference Include="Unity.Collections">
-      <HintPath>$(UnhollowedDllPath)\Unity.Collections.dll</HintPath>
-    </Reference>
-
-    <Reference Include="Unity.Entities">
-      <HintPath>$(UnhollowedDllPath)\Unity.Entities.dll</HintPath>
-    </Reference>
-
-    <Reference Include="Unity.Entities.Hybrid">
-      <HintPath>$(UnhollowedDllPath)\Unity.Entities.Hybrid.dll</HintPath>
-    </Reference>
-
-    <Reference Include="Unity.Jobs">
-      <HintPath>$(UnhollowedDllPath)\Unity.Jobs.dll</HintPath>
-    </Reference>
-
-    <Reference Include="UnityEngine">
-      <HintPath>$(UnhollowedDllPath)\UnityEngine.dll</HintPath>
-    </Reference>
-
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(UnhollowedDllPath)\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-
-    <Reference Include="Stunlock.Core">
-      <HintPath>$(UnhollowedDllPath)\Stunlock.Core.dll</HintPath>
-    </Reference>
-
-    <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>$(UnhollowedDllPath)\UnityEngine.InputLegacyModule.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
