@@ -1,6 +1,6 @@
 # BetterMissions
 
-Coffin Sleep is a VRising mod that speeds up time while you sleep in your coffin.
+Better Missions is a VRising mod that allows you to change servant missions times and any other things.
 
 ## Instalation (Manual)
 
@@ -12,7 +12,7 @@ Coffin Sleep is a VRising mod that speeds up time while you sleep in your coffin
 
 ## How to use
 
-* Just need to enter in your coffin and sleep.
+* When you start an mission in the throne it will automatically reduce the time based on defined configs.
 
 ## Configuration
 
