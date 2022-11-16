@@ -34,7 +34,7 @@ public static class DB {
     public static void Save() {
         Mission.save();
 
-        Log.Info("All database saved to JSON file.");
+        Log.Info("All database saved to JSON files.");
     }
 
     internal static void save<T>(string fileName, T data, JsonSerializerOptions jsonOptions) {
