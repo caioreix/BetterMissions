@@ -13,8 +13,8 @@
     <Copy SourceFiles="$(OutDir)$(ProjectName).dll" DestinationFolder="./dist" />
   </Target>
 
-  <Import Project="Config.xml" Condition=" '$(Configuration)' == 'Debug'" />
-  <Target Name="CopyDLLs" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug'">
+  <Import Project="Config.xml" Condition=" '$(Configuration)' == 'Test'" />
+  <Target Name="CopyDLLs" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Test'">
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildDestinationFolder)" />
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="./dist" />
   </Target>
