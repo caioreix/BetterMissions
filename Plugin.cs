@@ -1,16 +1,21 @@
 ﻿using BepInEx;
-using BepInEx.Logging;
 using BepInEx.Configuration;
 using BepInEx.IL2CPP;
-using HarmonyLib;
-using Wetstone.API;
+using BepInEx.Logging;
+
 using Database;
-using Logger;
+
+using HarmonyLib;
+
+using Utils.Logger;
+
+using Wetstone.API;
 
 namespace BetterMissions;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("xyz.molenzwiebel.wetstone")]
+// [Wetstone.API.Reloadable]
 public class Plugin : BasePlugin {
     public override void Load() {
         if (VWorld.IsServer) Server.Load(this.Config, this.Log);
@@ -28,11 +33,10 @@ public class Plugin : BasePlugin {
 public static class Server {
     public static Harmony harmony;
     internal static void Load(ConfigFile config, ManualLogSource logger) {
-        Settings.Config.Load(config);
-        Logger.Config.Load(logger, "Server", global::Settings.Env.LogOnTempFile.Value, global::Settings.Env.EnableTraceLogs.Value);
+        Settings.Config.Load(config, logger, "Server");
 
-        DB.Config();
-        DB.Load();
+        LocalDB.Config();
+        LocalDB.Load();
 
         harmony = new Harmony(PluginInfo.PLUGIN_GUID);
 
@@ -44,7 +48,7 @@ public static class Server {
 
     internal static bool Unload() {
         harmony.UnpatchSelf();
-        DB.Save();
+        LocalDB.Save();
 
         Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} server side is unloaded!");
         return true;
@@ -53,8 +57,7 @@ public static class Server {
 
 internal static class Client {
     internal static void Load(ConfigFile config, ManualLogSource logger) {
-        Settings.Config.Load(config);
-        Logger.Config.Load(logger, "Client", global::Settings.Env.LogOnTempFile.Value, global::Settings.Env.EnableTraceLogs.Value);
+        Settings.Config.Load(config, logger, "Client");
 
         Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} client side is loaded!");
     }

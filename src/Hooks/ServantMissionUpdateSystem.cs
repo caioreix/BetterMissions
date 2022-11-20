@@ -1,9 +1,13 @@
 using System;
+
 using HarmonyLib;
+
 using ProjectM.Shared.Systems;
-using Logger;
+
 using Settings;
-using Database;
+
+using Utils.Database;
+using Utils.Logger;
 
 namespace Hooks;
 
@@ -11,11 +15,12 @@ namespace Hooks;
 
 // ServantMissionUpdateSystem Called the mission dat update.
 public class ServantMissionUpdateSystemPatch {
+
     [HarmonyPatch(typeof(ServantMissionUpdateSystem), nameof(ServantMissionUpdateSystem.OnUpdate))]
     public static class OnUpdate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                Systems.Mission.ReduceAllNewMissionsTimeProgress(__instance.EntityManager, Env.MissionReduceRate.Value);
+                Systems.Mission.ReduceAllNewMissionsTimeProgress(__instance.EntityManager, ENV.MissionReduceRate.Value);
             } catch (Exception e) { Log.Fatal(e); }
         }
     }

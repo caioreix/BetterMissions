@@ -1,5 +1,7 @@
 using System.Collections.Concurrent;
 
+using Utils.Database;
+
 namespace Database;
 
 public static class Mission {
