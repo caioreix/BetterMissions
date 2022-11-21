@@ -1,7 +1,5 @@
 using System;
-
 using Utils.Database;
-
 using Wetstone.API;
 
 namespace Database;

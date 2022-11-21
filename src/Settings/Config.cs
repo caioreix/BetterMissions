@@ -1,5 +1,4 @@
 using System;
-
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using BetterMissions;

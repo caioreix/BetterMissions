@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using System.Text.Json.Serialization;
-
 using Utils.Database;
 
 namespace Database;

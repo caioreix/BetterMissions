@@ -1,12 +1,9 @@
 using System;
-
 using HarmonyLib;
-
 using ProjectM.Shared.Systems;
-
 using Settings;
-
 using Utils.Database;
+
 using Utils.Logger;
 
 namespace Hooks;

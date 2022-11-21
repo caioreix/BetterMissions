@@ -1,11 +1,7 @@
 using System;
-
 using Database;
-
 using HarmonyLib;
-
 using ProjectM;
-
 using Utils.Logger;
 
 namespace Hooks;
