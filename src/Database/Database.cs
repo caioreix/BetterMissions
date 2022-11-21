@@ -2,6 +2,8 @@ using System;
 
 using Utils.Database;
 
+using Wetstone.API;
+
 namespace Database;
 
 public static class LocalDB {
@@ -14,7 +16,9 @@ public static class LocalDB {
             () => Mission.save(),
         };
 
-        var cleanActions = new Action[] { };
+        var cleanActions = new Action[] {
+            () => Systems.Mission.GarbageCollector(VWorld.Server.EntityManager),
+        };
 
         DB.Config(loadActions, saveActions, cleanActions);
     }

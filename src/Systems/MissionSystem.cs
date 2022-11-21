@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-
 using Settings;
-
 using Unity.Entities;
-
 using Utils.Logger;
 
 // Alias
@@ -15,16 +11,14 @@ namespace Systems;
 public static class Mission {
     // ReduceAllNewMissionsTimeProgress based on passed values.
     public static void ReduceAllNewMissionsTimeProgress(EntityManager em, float reduction) {
-        GarbageCollector(em);
-
         var missions = ASM.GetAllBuffers(em);
         foreach (var missionBuffer in missions) {
             for (int i = 0; i < missionBuffer.Length; i++) {
                 var mission = missionBuffer[i];
                 var key = ASM.GetMissionUID(mission);
 
-                if (Database.Mission.Progress.TryGetValue(key, out long missionTimestamp)) {
-                    handleExistingMission(ref mission, key, missionTimestamp);
+                if (Database.Mission.Progress.TryGetValue(key, out Database.Mission.ProgressStruct missionProgress)) {
+                    handleExistingMission(ref mission, key, missionProgress);
                 } else {
                     reduceMissionProgress(ref mission, reduction);
                 }
@@ -47,33 +41,33 @@ public static class Mission {
 
             if (!missionUIDs.Contains(key)) {
                 Database.Mission.Progress.TryRemove(key, out _);
-                Log.Trace($"Mission garbage removed: {key}");
+                Log.Trace($"Mission garbage removed: \"{key}\"");
             }
         }
     }
 
-    private static void handleExistingMission(ref ProjectM.ActiveServantMission mission, string key, long missionTimestamp) {
-        var nowTimestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-        if (nowTimestamp <= missionTimestamp) {
-            return; // exist but the endtime not reached.
+    private static void handleExistingMission(ref ProjectM.ActiveServantMission mission, string key, Database.Mission.ProgressStruct missionProgress) {
+        var nowTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
+        if (missionProgress.Synced) {
+            return; // Mission already synced to the server.
         }
-
-        // If offline mission progress is disabled we need update database timestamp to maintain the integrity.
         if (!ENV.OfflineMissionProgress.Value) {
-            var newEndTimestamp = ASM.GetMissionLengthTimestamp(mission);
-            Database.Mission.Progress.AddOrUpdate(
-                key,
-                newEndTimestamp,
-                (_, _) => newEndTimestamp
-            );
-            Log.Trace($"Mission updated: {key}: {missionTimestamp} -> {newEndTimestamp}");
+            return;
         }
 
-        // Update mission progress and remove from database.
-        ASM.SetMissionLength(ref mission, 0);
-        if (Database.Mission.Progress.TryRemove(key, out _)) {
-            Log.Trace($"Mission remove: {key}");
+        // To display the correct mission end time on the missions HUD.
+        var newEndMissionLength = missionProgress.EndTimestamp - nowTimestamp;
+        if (newEndMissionLength < 0) {
+            newEndMissionLength = 0;
+
+            Database.Mission.Progress.TryRemove(key, out _);
+            Log.Trace($"Mission remove: \"{key}\"");
         }
+
+        missionProgress.Synced = true;
+        Database.Mission.Progress.AddOrUpdate(key, missionProgress, (_, _) => missionProgress);
+        ASM.SetMissionLength(ref mission, newEndMissionLength);
+        Log.Trace($"Mission progression updated: \"{key}\": {newEndMissionLength}");
     }
 
     private static void reduceMissionProgress(ref ProjectM.ActiveServantMission mission, float reduction) {
@@ -84,7 +78,11 @@ public static class Mission {
         var newEndTimestamp = ASM.GetMissionLengthTimestamp(mission);
         Database.Mission.Progress.TryAdd(
             missionKey,
-            newEndTimestamp
+            new Database.Mission.ProgressStruct() {
+                EndTimestamp = newEndTimestamp,
+                Modifier = reduction,
+                Synced = true,
+            }
         );
         Log.Trace($"Mission added: {missionKey}: {newEndTimestamp}");
     }

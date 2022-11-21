@@ -1,10 +1,11 @@
 using System;
 
+using Database;
+
 using HarmonyLib;
 
 using ProjectM;
 
-using Utils.Database;
 using Utils.Logger;
 
 namespace Hooks;
@@ -16,7 +17,7 @@ public class TriggerPersistenceSaveSystemPatch {
     public class TriggerSave {
         public static void Prefix() {
             try {
-                DB.Save();
+                LocalDB.Save();
             } catch (Exception e) { Log.Fatal(e); }
         }
     }

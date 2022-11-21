@@ -14,6 +14,18 @@ Better Missions is a VRising mod that allows you to change servant missions time
 
 * When you start an mission in the throne it will automatically reduce the time based on defined configs.
 
+Features:
+  - Control the mission duration.
+  - Offline mission duration progress.
+
+Future features:
+  - Config reduction for each mission on map.
+  - Update database before saving, to work with other mods like (CoffinSleep).
+  - Encrypt json files.
+  - Update mission time if the MissionReduceRate was changed.
+  - Add chat command to reload server configs.
+  - Level system to send servants to the mission.
+
 ## Configuration
 
 Values can be configured at `(VRising client/server folder)/VRising/BepInEx/config/BetterMissions.cfg`
