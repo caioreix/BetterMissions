@@ -1,10 +1,9 @@
 using System;
 using HarmonyLib;
 using ProjectM;
-using Logger;
-using Database;
+using Utils.Logger;
 
-namespace Hooks;
+namespace BetterMissions.Hooks;
 
 [HarmonyPatch]
 
@@ -13,7 +12,7 @@ public class GameBootstrapPatch {
     public class OnApplicationQuit {
         public static void Prefix() {
             try {
-                DB.Save();
+                Database.LocalDB.Save();
             } catch (Exception e) { Log.Fatal(e); }
         }
     }

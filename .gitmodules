@@ -1,0 +1,3 @@
+[submodule "BepInEx-Utils"]
+	path = BepInEx-Utils
+	url = https://github.com/caioreix/BepInEx-Utils
