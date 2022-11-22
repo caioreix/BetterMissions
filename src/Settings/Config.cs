@@ -1,17 +1,21 @@
 using System;
 using BepInEx.Configuration;
 using BepInEx.Logging;
-using BetterMissions;
+using Wetstone.API;
 
-namespace Settings;
+namespace BetterMissions.Settings;
 
 public class Config {
     public static void Load(ConfigFile configFile, ManualLogSource logger, string worldType) {
-        var configActions = new Action[]{
-            () => ENV.load(),
-    };
+        // Settings setup
+        Settings.ENV.Server.Setup();
+        Utils.Settings.Config.Setup(PluginInfo.PLUGIN_GUID, configFile);
+        Utils.Settings.Config.Load(); // just load this after setup all actions.
 
-        Utils.Settings.Config.Load(PluginInfo.PLUGIN_GUID, configFile, configActions);
-        Utils.Logger.Config.Load(logger, worldType);
+        // Logger setup
+        Utils.Logger.Config.Setup(logger, worldType);
+
+        // Databases setup
+        Database.Mission.Setup();
     }
 }

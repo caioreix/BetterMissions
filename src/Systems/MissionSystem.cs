@@ -1,12 +1,12 @@
 using System;
-using Settings;
+using BetterMissions.Settings;
 using Unity.Entities;
 using Utils.Logger;
 
 // Alias
 using ASM = Utils.VRising.Entities.ActiveServantMission;
 
-namespace Systems;
+namespace BetterMissions.Systems;
 
 public static class Mission {
     // ReduceAllNewMissionsTimeProgress based on passed values.
@@ -17,7 +17,7 @@ public static class Mission {
                 var mission = missionBuffer[i];
                 var key = ASM.GetMissionUID(mission);
 
-                if (Database.Mission.Progress.TryGetValue(key, out Database.Mission.ProgressStruct missionProgress)) {
+                if (BetterMissions.Database.Mission.Progress.TryGetValue(key, out BetterMissions.Database.Mission.ProgressStruct missionProgress)) {
                     handleExistingMission(ref mission, key, missionProgress);
                 } else {
                     reduceMissionProgress(ref mission, reduction);
@@ -36,17 +36,17 @@ public static class Mission {
             return;
         }
 
-        foreach (var activeMission in Database.Mission.Progress) {
+        foreach (var activeMission in BetterMissions.Database.Mission.Progress) {
             var key = activeMission.Key;
 
             if (!missionUIDs.Contains(key)) {
-                Database.Mission.Progress.TryRemove(key, out _);
+                BetterMissions.Database.Mission.Progress.TryRemove(key, out _);
                 Log.Trace($"Mission garbage removed: \"{key}\"");
             }
         }
     }
 
-    private static void handleExistingMission(ref ProjectM.ActiveServantMission mission, string key, Database.Mission.ProgressStruct missionProgress) {
+    private static void handleExistingMission(ref ProjectM.ActiveServantMission mission, string key, BetterMissions.Database.Mission.ProgressStruct missionProgress) {
         var nowTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
         if (missionProgress.Synced) {
             return; // Mission already synced to the server.
@@ -60,12 +60,12 @@ public static class Mission {
         if (newEndMissionLength < 0) {
             newEndMissionLength = 0;
 
-            Database.Mission.Progress.TryRemove(key, out _);
+            BetterMissions.Database.Mission.Progress.TryRemove(key, out _);
             Log.Trace($"Mission remove: \"{key}\"");
         }
 
         missionProgress.Synced = true;
-        Database.Mission.Progress.AddOrUpdate(key, missionProgress, (_, _) => missionProgress);
+        BetterMissions.Database.Mission.Progress.AddOrUpdate(key, missionProgress, (_, _) => missionProgress);
         ASM.SetMissionLength(ref mission, newEndMissionLength);
         Log.Trace($"Mission progression updated: \"{key}\": {newEndMissionLength}");
     }
@@ -76,9 +76,9 @@ public static class Mission {
 
         var missionKey = ASM.GetMissionUID(mission);
         var newEndTimestamp = ASM.GetMissionLengthTimestamp(mission);
-        Database.Mission.Progress.TryAdd(
+        BetterMissions.Database.Mission.Progress.TryAdd(
             missionKey,
-            new Database.Mission.ProgressStruct() {
+            new BetterMissions.Database.Mission.ProgressStruct() {
                 EndTimestamp = newEndTimestamp,
                 Modifier = reduction,
                 Synced = true,

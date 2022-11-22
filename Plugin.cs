@@ -2,7 +2,7 @@
 using BepInEx.Configuration;
 using BepInEx.IL2CPP;
 using BepInEx.Logging;
-using Database;
+using BetterMissions.Database;
 using HarmonyLib;
 using Utils.Logger;
 using Wetstone.API;
@@ -31,7 +31,6 @@ public static class Server {
     internal static void Load(ConfigFile config, ManualLogSource logger) {
         Settings.Config.Load(config, logger, "Server");
 
-        LocalDB.Config();
         LocalDB.Load();
 
         harmony = new Harmony(PluginInfo.PLUGIN_GUID);
@@ -53,7 +52,7 @@ public static class Server {
 
 internal static class Client {
     internal static void Load(ConfigFile config, ManualLogSource logger) {
-        Settings.Config.Load(config, logger, "Client");
+        BetterMissions.Settings.Config.Load(config, logger, "Client");
 
         Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} client side is loaded!");
     }

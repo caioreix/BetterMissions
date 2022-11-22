@@ -1,12 +1,10 @@
 using System;
 using HarmonyLib;
 using ProjectM.Shared.Systems;
-using Settings;
 using Utils.Database;
-
 using Utils.Logger;
 
-namespace Hooks;
+namespace BetterMissions.Hooks;
 
 [HarmonyPatch]
 
@@ -17,7 +15,7 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnUpdate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                Systems.Mission.ReduceAllNewMissionsTimeProgress(__instance.EntityManager, ENV.MissionReduceRate.Value);
+                BetterMissions.Systems.Mission.ReduceAllNewMissionsTimeProgress(__instance.EntityManager, Settings.ENV.MissionReduceRate.Value);
             } catch (Exception e) { Log.Fatal(e); }
         }
     }

@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.Text.Json.Serialization;
 using Utils.Database;
 
-namespace Database;
+namespace BetterMissions.Database;
 
 public static class Mission {
     public struct ProgressStruct {
@@ -13,14 +13,14 @@ public static class Mission {
     };
 
     private static string category = nameof(Mission);
-
     public static ConcurrentDictionary<string, ProgressStruct> Progress;
 
-    internal static void save() {
-        DB.save($"{category}{nameof(Progress)}", Progress, DB.Pretty_JSON_options);
-    }
-
-    internal static void load() {
-        DB.load($"{category}{nameof(Progress)}", ref Progress);
+    public static void Setup() {
+        DB.AddLoadActions(
+            () => DB.loadFile($"{category}{nameof(Progress)}", ref Progress)
+        );
+        DB.AddSaveActions(
+            () => DB.saveFile($"{category}{nameof(Progress)}", Progress, true)
+        );
     }
 }

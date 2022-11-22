@@ -402,3 +402,4 @@ FodyWeavers.xsd
 Config.xml
 build
 dist
+.vscode

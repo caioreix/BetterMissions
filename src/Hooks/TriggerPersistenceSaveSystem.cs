@@ -1,10 +1,9 @@
 using System;
-using Database;
 using HarmonyLib;
 using ProjectM;
 using Utils.Logger;
 
-namespace Hooks;
+namespace BetterMissions.Hooks;
 
 [HarmonyPatch]
 
@@ -13,7 +12,7 @@ public class TriggerPersistenceSaveSystemPatch {
     public class TriggerSave {
         public static void Prefix() {
             try {
-                LocalDB.Save();
+                Database.LocalDB.Save();
             } catch (Exception e) { Log.Fatal(e); }
         }
     }
