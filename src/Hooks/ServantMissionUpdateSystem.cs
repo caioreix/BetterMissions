@@ -1,7 +1,6 @@
 using System;
 using HarmonyLib;
 using ProjectM.Shared.Systems;
-using Utils.Database;
 using Utils.Logger;
 
 namespace BetterMissions.Hooks;
@@ -15,7 +14,7 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnUpdate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                BetterMissions.Systems.Mission.ReduceAllNewMissionsTimeProgress(__instance.EntityManager, Settings.ENV.MissionReduceRate.Value);
+                BetterMissions.Systems.Mission.ReduceAllNewMissionsTimeProgress(__instance.EntityManager);
             } catch (Exception e) { Log.Fatal(e); }
         }
     }
@@ -24,7 +23,7 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnDestroy {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                DB.Save();
+                Database.LocalDB.Save();
             } catch (Exception e) { Log.Fatal(e); }
         }
     }

@@ -17,10 +17,11 @@ Better Missions is a VRising mod that allows you to change servant missions time
 Features:
   - Control the mission duration.
   - Offline mission duration progress.
+  - Work with other mods that speeds the time, like [CoffinSleep](https://github.com/caioreix/CoffinSleep).
 
 Future features:
+  - Real mission duration displayed on the HUD.
   - Config reduction for each mission on map.
-  - Update database before saving, to work with other mods like (CoffinSleep).
   - Encrypt json files.
   - Update mission time if the MissionReduceRate was changed.
   - Add chat command to reload server configs.

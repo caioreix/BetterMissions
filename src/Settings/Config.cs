@@ -1,7 +1,5 @@
-using System;
 using BepInEx.Configuration;
 using BepInEx.Logging;
-using Wetstone.API;
 
 namespace BetterMissions.Settings;
 
@@ -16,6 +14,7 @@ public class Config {
         Utils.Logger.Config.Setup(logger, worldType);
 
         // Databases setup
-        Database.Mission.Setup();
+        Database.Mission.Setup(); // Load/Save
+        Systems.Mission.Setup();  // Clean
     }
 }
