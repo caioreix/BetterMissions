@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>BetterMissions</AssemblyName>
     <Description>An VRising mod to do a better control of the servant missions.</Description>
-    <Version>1.1.0</Version>
+    <Version>1.0.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

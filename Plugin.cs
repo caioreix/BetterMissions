@@ -52,7 +52,7 @@ public static class Server {
 
 internal static class Client {
     internal static void Load(ConfigFile config, ManualLogSource logger) {
-        BetterMissions.Settings.Config.Load(config, logger, "Client");
+        Settings.Config.Load(config, logger, "Client");
 
         Log.Info($"Plugin {PluginInfo.PLUGIN_GUID} v{PluginInfo.PLUGIN_VERSION} client side is loaded!");
     }

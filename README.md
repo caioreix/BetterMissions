@@ -32,8 +32,7 @@ Future features:
 Values can be configured at `(VRising client/server folder)/VRising/BepInEx/config/BetterMissions.cfg`
 
 ```
-[🔧Server]
-
+[Server]
 ## Define the mission reduce divisor. Ex: if you set 2, 2 hours will be 1 hour (0 will be replaced by 1)
 # Setting type: Single
 # Default value: 2
@@ -43,5 +42,4 @@ MissionReduceRate = 2
 # Setting type: Boolean
 # Default value: true
 OfflineMissionProgress = true
-
 ```

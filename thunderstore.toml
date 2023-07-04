@@ -4,7 +4,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "Caioreix"
 name = "BetterMissions"
-versionNumber = "1.1.0"
+versionNumber = "1.0.1"
 description = "An VRising mod to do a better control of the servant missions."
 websiteUrl = "https://github.com/caioreix/BetterMissions"
 containsNsfwContent = false

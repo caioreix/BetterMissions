@@ -1,26 +1,35 @@
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Utils.Database;
 
 namespace BetterMissions.Database;
 
 public static class Mission {
-    public struct ProgressStruct {
+    public struct Progress {
         public long EndTimestamp { get; set; }
-        public float Modifier { get; set; }
         [JsonIgnore]
         public bool Synced;
     };
 
+
+    public struct Setting {
+        public float SuccessRateBonus { get; set; }
+        public float MissionLength { get; set; }
+        public float InjuryChance { get; set; }
+        public float LootFactor { get; set; }
+    }
+
     private static string category = nameof(Mission);
-    public static ConcurrentDictionary<string, ProgressStruct> Progress;
+    public static ConcurrentDictionary<string, Progress> Progresses;
+    public static Dictionary<string, Setting> Settings;
 
     public static void Setup() {
         DB.AddLoadActions(
-            () => DB.loadFile($"{category}{nameof(Progress)}", ref Progress)
+            () => DB.loadFile($"{category}{nameof(Progresses)}", ref Progresses)
         );
         DB.AddSaveActions(
-            () => DB.saveFile($"{category}{nameof(Progress)}", Progress, true)
+            () => DB.saveFile($"{category}{nameof(Progresses)}", Progresses, true)
         );
     }
 }
