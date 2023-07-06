@@ -22,7 +22,7 @@ public static class Mission {
 
     private static string category = nameof(Mission);
     public static ConcurrentDictionary<string, Progress> Progresses;
-    public static Dictionary<string, Setting> Settings;
+    public static Dictionary<string, Setting> Settings = new Dictionary<string, Setting>();
 
     public static void Setup() {
         DB.AddLoadActions(

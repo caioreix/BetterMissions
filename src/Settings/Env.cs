@@ -1,19 +1,17 @@
-using System.Collections.Generic;
 using BepInEx.Configuration;
 
 namespace BetterMissions.Settings;
 
 public static class ENV {
     // Mission_General
-    private static string missionGeneral = "🚩Mission";
-    public static ConfigEntry<bool> OfflineMissionProgress;
+    private static string missionGeneral = "0.🚩 Mission";
     public static ConfigEntry<float> MissionLengthModifier;
     public static ConfigEntry<float> MissionSuccessRateBonusModifier;
     public static ConfigEntry<float> MissionInjuryChanceModifier;
     public static ConfigEntry<float> MissionLootFactorModifier;
 
     // Mission_Reckless1
-    private static string missionReckless1 = "🚩Mission-Reckless1";
+    private static string missionReckless1 = "1.🚩 Mission-Reckless-1";
     private static ConfigEntry<bool> EnableReckless1Settings;
     private static ConfigEntry<float> Reckless1MissionLength;
     private static ConfigEntry<float> Reckless1MissionSuccessRateBonus;
@@ -21,7 +19,7 @@ public static class ENV {
     private static ConfigEntry<float> Reckless1MissionLootFactor;
 
     // Mission_Reckless2
-    private static string missionReckless2 = "🚩Mission-Reckless2";
+    private static string missionReckless2 = "2.🚩 Mission-Reckless-2";
     private static ConfigEntry<bool> EnableReckless2Settings;
     private static ConfigEntry<float> Reckless2MissionLength;
     private static ConfigEntry<float> Reckless2MissionSuccessRateBonus;
@@ -29,7 +27,7 @@ public static class ENV {
     private static ConfigEntry<float> Reckless2MissionLootFactor;
 
     // Mission_Normal1
-    private static string missionNormal1 = "🚩Mission-Normal1";
+    private static string missionNormal1 = "3.🚩 Mission-Normal";
     private static ConfigEntry<bool> EnableNormal1Settings;
     private static ConfigEntry<float> Normal1MissionLength;
     private static ConfigEntry<float> Normal1MissionSuccessRateBonus;
@@ -37,7 +35,7 @@ public static class ENV {
     private static ConfigEntry<float> Normal1MissionLootFactor;
 
     // Mission_Prepared1
-    private static string missionPrepared1 = "🚩Mission-Prepared1";
+    private static string missionPrepared1 = "4.🚩 Mission-Prepared-1";
     private static ConfigEntry<bool> EnablePrepared1Settings;
     private static ConfigEntry<float> Prepared1MissionLength;
     private static ConfigEntry<float> Prepared1MissionSuccessRateBonus;
@@ -45,7 +43,7 @@ public static class ENV {
     private static ConfigEntry<float> Prepared1MissionLootFactor;
 
     // Mission_Prepared2
-    private static string missionPrepared2 = "🚩Mission-Prepared2";
+    private static string missionPrepared2 = "5.🚩 Mission-Prepared-2";
     private static ConfigEntry<bool> EnablePrepared2Settings;
     private static ConfigEntry<float> Prepared2MissionLength;
     private static ConfigEntry<float> Prepared2MissionSuccessRateBonus;
@@ -62,13 +60,6 @@ public static class ENV {
         // Load the plugin config variables.
         private static void load() {
             // Mission_General
-            OfflineMissionProgress = Utils.Settings.Config.cfg.Bind(
-                missionGeneral,
-                nameof(OfflineMissionProgress),
-                true,
-                "Enabled, mission progress will be loaded even with the server offline."
-            );
-
             MissionLengthModifier = Utils.Settings.Config.cfg.Bind(
                 missionGeneral,
                 nameof(MissionLengthModifier),

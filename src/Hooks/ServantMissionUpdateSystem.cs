@@ -1,8 +1,8 @@
-using System.Text;
 using System;
 using HarmonyLib;
 using ProjectM.Shared.Systems;
 using Utils.Logger;
+using Utils.Database;
 using Utils.VRising.Entities;
 
 namespace BetterMissions.Hooks;
@@ -15,11 +15,11 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnCreate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                if (Wetstone.API.VWorld.IsClient) {
-                    World.Set(Wetstone.API.VWorld.Client);
+                if (Bloodstone.API.VWorld.IsClient) {
+                    World.Set(Bloodstone.API.VWorld.Client);
                 }
-                if (Wetstone.API.VWorld.IsServer) {
-                    World.Set(Wetstone.API.VWorld.Server);
+                if (Bloodstone.API.VWorld.IsServer) {
+                    World.Set(Bloodstone.API.VWorld.Server);
                 }
             } catch (Exception e) { Log.Fatal(e); }
         }
@@ -29,11 +29,12 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnUpdate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                if (!Utils.Database.Cache.AlreadyCalled("ApplyMissionModifiers")) { // Run just on the first execution.
-                    Systems.Mission.ApplyModifiers();
+                if (!Cache.Exists("ApplyModifiers")) { // Apply modifiers just once.
+                    Cache.Key(
+                        "ApplyModifiers",
+                        Systems.Mission.ApplyModifiers()
+                    );
                 }
-
-                BetterMissions.Systems.Mission.ProgressPersistence();
             } catch (Exception e) { Log.Fatal(e); }
         }
     }
@@ -42,7 +43,7 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnDestroy {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                Database.LocalDB.Save();
+                // Database.LocalDB.Save(); // TODO Database
             } catch (Exception e) { Log.Fatal(e); }
         }
     }

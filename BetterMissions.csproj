@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>BetterMissions</AssemblyName>
     <Description>An VRising mod to do a better control of the servant missions.</Description>
     <Version>1.0.1</Version>
@@ -20,10 +20,11 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="BepInEx.IL2CPP" Version="6.0.0-*" IncludeAssets="compile" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.668" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.Core" Version="6.0.0-be.668" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+    <PackageReference Include="VRising.Bloodstone" Version="0.1.4" />
+    <PackageReference Include="VRising.Unhollowed.Client" Version="0.6.5.*" />
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
-    <PackageReference Include="VRising.Unhollowed.Client" Version="0.5.42584" />
-    <PackageReference Include="Wetstone" Version="1.2.0" />
   </ItemGroup>
 </Project>
