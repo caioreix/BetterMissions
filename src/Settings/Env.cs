@@ -132,7 +132,7 @@ public static class ENV {
             Reckless2MissionLength = Utils.Settings.Config.cfg.Bind(
                 missionReckless2,
                 nameof(Reckless2MissionLength),
-                1440F,
+                14400F,
                 "Define the Reckless2 mission length in seconds."
             );
             Reckless2MissionSuccessRateBonus = Utils.Settings.Config.cfg.Bind(
