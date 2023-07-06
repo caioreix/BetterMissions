@@ -32,7 +32,7 @@ jobs:
       - name: Determine Version
         uses: gittools/actions/gitversion/execute@v0.9.7
         with:
-          additionalArguments: '/overrideconfig "mode=Mainline"'
+          additionalArguments: '/overrideconfig "mode=Mainline" /overrideconfig "next-version=2.0.0"'
       - name: Download Release
         run: gh release download ${{ env.RELEASE_TAG }} -D ./dist
         env:
