@@ -12,7 +12,7 @@ public class GameBootstrapPatch {
     public class OnApplicationQuit {
         public static void Prefix() {
             try {
-                Database.LocalDB.Save();
+                // Database.LocalDB.Save();  // TODO Database
             } catch (Exception e) { Log.Fatal(e); }
         }
     }
