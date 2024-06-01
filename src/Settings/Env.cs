@@ -60,28 +60,28 @@ public static class ENV {
         // Load the plugin config variables.
         private static void load() {
             // Mission_General
-            MissionLengthModifier = Utils.Settings.Config.cfg.Bind(
+            MissionLengthModifier = Utils.Settings.Config.Bind(
                 missionGeneral,
                 nameof(MissionLengthModifier),
                 2F,
                 "Define the mission length modifier. (MissionLength / modifier)"
             );
 
-            MissionSuccessRateBonusModifier = Utils.Settings.Config.cfg.Bind(
+            MissionSuccessRateBonusModifier = Utils.Settings.Config.Bind(
                 missionGeneral,
                 nameof(MissionSuccessRateBonusModifier),
                 1F,
                 "Define the mission success rate bonus modifier. (MissionSuccessRateBonus / modifier)"
             );
 
-            MissionInjuryChanceModifier = Utils.Settings.Config.cfg.Bind(
+            MissionInjuryChanceModifier = Utils.Settings.Config.Bind(
                 missionGeneral,
                 nameof(MissionInjuryChanceModifier),
                 1F,
                 "Define the mission injury chance bonus modifier. (MissionInjuryChance / modifier)"
             );
 
-            MissionLootFactorModifier = Utils.Settings.Config.cfg.Bind(
+            MissionLootFactorModifier = Utils.Settings.Config.Bind(
                 missionGeneral,
                 nameof(MissionLootFactorModifier),
                 1F,
@@ -89,32 +89,32 @@ public static class ENV {
             );
 
             // Mission_Reckless1
-            EnableReckless1Settings = Utils.Settings.Config.cfg.Bind(
+            EnableReckless1Settings = Utils.Settings.Config.Bind(
                 missionReckless1,
                 nameof(EnableReckless1Settings),
                 false,
                 "Enabled, will use the specific mission level settings"
             );
 
-            Reckless1MissionLength = Utils.Settings.Config.cfg.Bind(
+            Reckless1MissionLength = Utils.Settings.Config.Bind(
                 missionReckless1,
                 nameof(Reckless1MissionLength),
                 7200F,
                 "Define the Reckless1 mission length in seconds."
             );
-            Reckless1MissionSuccessRateBonus = Utils.Settings.Config.cfg.Bind(
+            Reckless1MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionReckless1,
                 nameof(Reckless1MissionSuccessRateBonus),
                 -0.2F,
                 "Define the Reckless1 mission success rate bonus."
             );
-            Reckless1MissionInjuryChance = Utils.Settings.Config.cfg.Bind(
+            Reckless1MissionInjuryChance = Utils.Settings.Config.Bind(
                 missionReckless1,
                 nameof(Reckless1MissionInjuryChance),
                 0.3F,
                 "Define the Reckless1 mission injury chance bonus."
             );
-            Reckless1MissionLootFactor = Utils.Settings.Config.cfg.Bind(
+            Reckless1MissionLootFactor = Utils.Settings.Config.Bind(
                 missionReckless1,
                 nameof(Reckless1MissionLootFactor),
                 0.5F,
@@ -122,32 +122,32 @@ public static class ENV {
             );
 
             // Mission_Reckless2
-            EnableReckless2Settings = Utils.Settings.Config.cfg.Bind(
+            EnableReckless2Settings = Utils.Settings.Config.Bind(
                 missionReckless2,
                 nameof(EnableReckless2Settings),
                 false,
                 "Enabled, will use the specific mission level settings"
             );
 
-            Reckless2MissionLength = Utils.Settings.Config.cfg.Bind(
+            Reckless2MissionLength = Utils.Settings.Config.Bind(
                 missionReckless2,
                 nameof(Reckless2MissionLength),
                 1440F,
                 "Define the Reckless2 mission length in seconds."
             );
-            Reckless2MissionSuccessRateBonus = Utils.Settings.Config.cfg.Bind(
+            Reckless2MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionReckless2,
                 nameof(Reckless2MissionSuccessRateBonus),
                 -0.1F,
                 "Define the Reckless2 mission success rate bonus."
             );
-            Reckless2MissionInjuryChance = Utils.Settings.Config.cfg.Bind(
+            Reckless2MissionInjuryChance = Utils.Settings.Config.Bind(
                 missionReckless2,
                 nameof(Reckless2MissionInjuryChance),
                 0.3F,
                 "Define the Reckless2 mission injury chance bonus."
             );
-            Reckless2MissionLootFactor = Utils.Settings.Config.cfg.Bind(
+            Reckless2MissionLootFactor = Utils.Settings.Config.Bind(
                 missionReckless2,
                 nameof(Reckless2MissionLootFactor),
                 0.75F,
@@ -155,32 +155,32 @@ public static class ENV {
             );
 
             // Mission_Normal1
-            EnableNormal1Settings = Utils.Settings.Config.cfg.Bind(
+            EnableNormal1Settings = Utils.Settings.Config.Bind(
                 missionNormal1,
                 nameof(EnableNormal1Settings),
                 false,
                 "Enabled, will use the specific mission level settings"
             );
 
-            Normal1MissionLength = Utils.Settings.Config.cfg.Bind(
+            Normal1MissionLength = Utils.Settings.Config.Bind(
                 missionNormal1,
                 nameof(Normal1MissionLength),
                 28800F,
                 "Define the Normal1 mission length in seconds."
             );
-            Normal1MissionSuccessRateBonus = Utils.Settings.Config.cfg.Bind(
+            Normal1MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionNormal1,
                 nameof(Normal1MissionSuccessRateBonus),
                 0F,
                 "Define the Normal1 mission success rate bonus."
             );
-            Normal1MissionInjuryChance = Utils.Settings.Config.cfg.Bind(
+            Normal1MissionInjuryChance = Utils.Settings.Config.Bind(
                 missionNormal1,
                 nameof(Normal1MissionInjuryChance),
                 0.25F,
                 "Define the Normal1 mission injury chance bonus."
             );
-            Normal1MissionLootFactor = Utils.Settings.Config.cfg.Bind(
+            Normal1MissionLootFactor = Utils.Settings.Config.Bind(
                 missionNormal1,
                 nameof(Normal1MissionLootFactor),
                 1F,
@@ -188,32 +188,32 @@ public static class ENV {
             );
 
             // Mission_Prepared1
-            EnablePrepared1Settings = Utils.Settings.Config.cfg.Bind(
+            EnablePrepared1Settings = Utils.Settings.Config.Bind(
                 missionPrepared1,
                 nameof(EnablePrepared1Settings),
                 false,
                 "Enabled, will use the specific mission level settings"
             );
 
-            Prepared1MissionLength = Utils.Settings.Config.cfg.Bind(
+            Prepared1MissionLength = Utils.Settings.Config.Bind(
                 missionPrepared1,
                 nameof(Prepared1MissionLength),
                 57600F,
                 "Define the Prepared1 mission length in seconds."
             );
-            Prepared1MissionSuccessRateBonus = Utils.Settings.Config.cfg.Bind(
+            Prepared1MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionPrepared1,
                 nameof(Prepared1MissionSuccessRateBonus),
                 0.1F,
                 "Define the Prepared1 mission success rate bonus."
             );
-            Prepared1MissionInjuryChance = Utils.Settings.Config.cfg.Bind(
+            Prepared1MissionInjuryChance = Utils.Settings.Config.Bind(
                 missionPrepared1,
                 nameof(Prepared1MissionInjuryChance),
                 0.2F,
                 "Define the Prepared1 mission injury chance bonus."
             );
-            Prepared1MissionLootFactor = Utils.Settings.Config.cfg.Bind(
+            Prepared1MissionLootFactor = Utils.Settings.Config.Bind(
                 missionPrepared1,
                 nameof(Prepared1MissionLootFactor),
                 1.25F,
@@ -221,32 +221,32 @@ public static class ENV {
             );
 
             // Mission_Prepared2
-            EnablePrepared2Settings = Utils.Settings.Config.cfg.Bind(
+            EnablePrepared2Settings = Utils.Settings.Config.Bind(
                 missionPrepared2,
                 nameof(EnablePrepared2Settings),
                 false,
                 "Enabled, will use the specific mission level settings"
             );
 
-            Prepared2MissionLength = Utils.Settings.Config.cfg.Bind(
+            Prepared2MissionLength = Utils.Settings.Config.Bind(
                 missionPrepared2,
                 nameof(Prepared2MissionLength),
                 82800F,
                 "Define the Prepared2 mission length in seconds."
             );
-            Prepared2MissionSuccessRateBonus = Utils.Settings.Config.cfg.Bind(
+            Prepared2MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionPrepared2,
                 nameof(Prepared2MissionSuccessRateBonus),
                 0.2F,
                 "Define the Prepared2 mission success rate bonus."
             );
-            Prepared2MissionInjuryChance = Utils.Settings.Config.cfg.Bind(
+            Prepared2MissionInjuryChance = Utils.Settings.Config.Bind(
                 missionPrepared2,
                 nameof(Prepared2MissionInjuryChance),
                 0.2F,
                 "Define the Prepared2 mission injury chance bonus."
             );
-            Prepared2MissionLootFactor = Utils.Settings.Config.cfg.Bind(
+            Prepared2MissionLootFactor = Utils.Settings.Config.Bind(
                 missionPrepared2,
                 nameof(Prepared2MissionLootFactor),
                 1.5F,
@@ -322,7 +322,7 @@ public static class ENV {
                 );
             }
 
-            Utils.Settings.Config.cfg.Save();
+            Utils.Settings.Config.Save();
         }
     }
 }

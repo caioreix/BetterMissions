@@ -3,28 +3,39 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>BetterMissions</AssemblyName>
+    <Authors>caioreix</Authors>
     <Description>An VRising mod to do a better control of the servant missions.</Description>
+    <BepInExVersion>6.0.0-be.691</BepInExVersion>
     <Version>0.0.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Target Name="Thunderstore Copy to Dist" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
-    <Copy SourceFiles="$(OutDir)$(ProjectName).dll" DestinationFolder="./dist" />
+    <Copy SourceFiles="$(OutDir)$(ProjectName)$(ProjectVersion).dll" DestinationFolder="./dist" />
   </Target>
 
   <Import Project="Config.xml" Condition=" '$(Configuration)' == 'Test'" />
   <Target Name="CopyDLLs" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Test'">
-    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildDestinationFolder)" />
+    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildDestinationFolder)/Test" />
+    <Copy SourceFiles="$(TargetDir)vrising-utils.dll" DestinationFolder="$(BuildDestinationFolder)/Test" />
+    <Copy SourceFiles="$(TargetDir)bepinex-utils.dll" DestinationFolder="$(BuildDestinationFolder)/Test" />
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="./dist" />
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.668" IncludeAssets="compile" />
-    <PackageReference Include="BepInEx.Core" Version="6.0.0-be.668" IncludeAssets="compile" />
+    <!-- <PackageReference Include="BepInEx-Utils" Version="$(BepInExVersion)-v.3" Condition=" '$(Configuration)' != 'Test'" /> -->
+    <PackageReference Include="BepInEx-Utils" Version="6.0.0-be.691-v.3" />
+    <PackageReference Include="BepInEx-Utils.Vrising" Version="6.0.0-be.691-v.2" />
+    <!-- <PackageReference Include="BepInEx-Utils.Vrising" Version="6.0.0-be.691-v.2" Condition=" '$(Configuration)' != 'Test'" /> -->
+    <!-- <ProjectReference Include="../bepinex-utils/bepinex-utils.csproj" Condition=" '$(Configuration)' == 'Test'" /> -->
+    <!-- <ProjectReference Include="../vrising-utils/vrising-utils.csproj" Condition=" '$(Configuration)' == 'Test'" /> -->
+
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="$(BepInExVersion)" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.Core" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="VRising.Bloodstone" Version="0.1.4" />
-    <PackageReference Include="VRising.Unhollowed.Client" Version="0.6.5.*" />
+    <PackageReference Include="VRising.Bloodstone" Version="0.2.2" />
+    <PackageReference Include="VRising.Unhollowed.Client" Version="1.0.5.802790001" />
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
   </ItemGroup>
 </Project>
