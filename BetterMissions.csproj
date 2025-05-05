@@ -36,9 +36,13 @@
     <PackageReference Include="BepInEx.Unity.IL2CPP" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.Core" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="VRising.Bloodstone" Version="0.2.2" />
-    <PackageReference Include="VRising.Unhollowed.Client" Version="1.0.5.802790001" />
-    <PackageReference Include="System.Text.Json" Version="7.0.0" />
+<!--    <PackageReference Include="VRising.Bloodstone" Version="0.2.3" />-->
+    <PackageReference Include="VRising.Unhollowed.Client" Version="1.1.0.9121701" />
+    <PackageReference Include="System.Text.Json" Version="9.0.4" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy bin\Debug\net6.0\BetterMissions.dll &quot;E:\Games\V Rising Invaders of Oakveil\BepInEx\plugins&quot;" />
+  </Target>
 
 </Project>
