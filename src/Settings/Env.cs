@@ -1,54 +1,55 @@
 using BepInEx.Configuration;
+using Utils.Settings;
 
 namespace BetterMissions.Settings;
 
 public static class ENV {
     // Mission_General
     private static string missionGeneral = "0.🚩 Mission";
-    public static ConfigEntry<float> MissionLengthModifier;
-    public static ConfigEntry<float> MissionSuccessRateBonusModifier;
-    public static ConfigEntry<float> MissionInjuryChanceModifier;
-    public static ConfigEntry<float> MissionLootFactorModifier;
+    public static ConfigElement<float> MissionLengthModifier;
+    public static ConfigElement<float> MissionSuccessRateBonusModifier;
+    public static ConfigElement<float> MissionInjuryChanceModifier;
+    public static ConfigElement<float> MissionLootFactorModifier;
 
     // Mission_Reckless1
     private static string missionReckless1 = "1.🚩 Mission-Reckless-1";
-    private static ConfigEntry<bool> EnableReckless1Settings;
-    private static ConfigEntry<float> Reckless1MissionLength;
-    private static ConfigEntry<float> Reckless1MissionSuccessRateBonus;
-    private static ConfigEntry<float> Reckless1MissionInjuryChance;
-    private static ConfigEntry<float> Reckless1MissionLootFactor;
+    private static ConfigElement<bool> EnableReckless1Settings;
+    private static ConfigElement<float> Reckless1MissionLength;
+    private static ConfigElement<float> Reckless1MissionSuccessRateBonus;
+    private static ConfigElement<float> Reckless1MissionInjuryChance;
+    private static ConfigElement<float> Reckless1MissionLootFactor;
 
     // Mission_Reckless2
     private static string missionReckless2 = "2.🚩 Mission-Reckless-2";
-    private static ConfigEntry<bool> EnableReckless2Settings;
-    private static ConfigEntry<float> Reckless2MissionLength;
-    private static ConfigEntry<float> Reckless2MissionSuccessRateBonus;
-    private static ConfigEntry<float> Reckless2MissionInjuryChance;
-    private static ConfigEntry<float> Reckless2MissionLootFactor;
+    private static ConfigElement<bool> EnableReckless2Settings;
+    private static ConfigElement<float> Reckless2MissionLength;
+    private static ConfigElement<float> Reckless2MissionSuccessRateBonus;
+    private static ConfigElement<float> Reckless2MissionInjuryChance;
+    private static ConfigElement<float> Reckless2MissionLootFactor;
 
     // Mission_Normal1
     private static string missionNormal1 = "3.🚩 Mission-Normal";
-    private static ConfigEntry<bool> EnableNormal1Settings;
-    private static ConfigEntry<float> Normal1MissionLength;
-    private static ConfigEntry<float> Normal1MissionSuccessRateBonus;
-    private static ConfigEntry<float> Normal1MissionInjuryChance;
-    private static ConfigEntry<float> Normal1MissionLootFactor;
+    private static ConfigElement<bool> EnableNormal1Settings;
+    private static ConfigElement<float> Normal1MissionLength;
+    private static ConfigElement<float> Normal1MissionSuccessRateBonus;
+    private static ConfigElement<float> Normal1MissionInjuryChance;
+    private static ConfigElement<float> Normal1MissionLootFactor;
 
     // Mission_Prepared1
     private static string missionPrepared1 = "4.🚩 Mission-Prepared-1";
-    private static ConfigEntry<bool> EnablePrepared1Settings;
-    private static ConfigEntry<float> Prepared1MissionLength;
-    private static ConfigEntry<float> Prepared1MissionSuccessRateBonus;
-    private static ConfigEntry<float> Prepared1MissionInjuryChance;
-    private static ConfigEntry<float> Prepared1MissionLootFactor;
+    private static ConfigElement<bool> EnablePrepared1Settings;
+    private static ConfigElement<float> Prepared1MissionLength;
+    private static ConfigElement<float> Prepared1MissionSuccessRateBonus;
+    private static ConfigElement<float> Prepared1MissionInjuryChance;
+    private static ConfigElement<float> Prepared1MissionLootFactor;
 
     // Mission_Prepared2
     private static string missionPrepared2 = "5.🚩 Mission-Prepared-2";
-    private static ConfigEntry<bool> EnablePrepared2Settings;
-    private static ConfigEntry<float> Prepared2MissionLength;
-    private static ConfigEntry<float> Prepared2MissionSuccessRateBonus;
-    private static ConfigEntry<float> Prepared2MissionInjuryChance;
-    private static ConfigEntry<float> Prepared2MissionLootFactor;
+    private static ConfigElement<bool> EnablePrepared2Settings;
+    private static ConfigElement<float> Prepared2MissionLength;
+    private static ConfigElement<float> Prepared2MissionSuccessRateBonus;
+    private static ConfigElement<float> Prepared2MissionInjuryChance;
+    private static ConfigElement<float> Prepared2MissionLootFactor;
 
 
     public static class Mission {

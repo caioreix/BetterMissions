@@ -1,3 +1,9 @@
-[submodule "BepInEx-Utils"]
-	path = BepInEx-Utils
-	url = https://github.com/caioreix/BepInEx-Utils
+[submodule "src/Utils/BepInEx-Utils"]
+	path = src/Utils/BepInEx-Utils
+	url = https://github.com/caioreix/bepinex-utils
+	branch = main
+
+[submodule "src/Utils/Vrising-Utils"]
+	path = src/Utils/Vrising-Utils
+	url = https://github.com/caioreix/vrising-utils
+	branch = main

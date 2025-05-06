@@ -31,7 +31,7 @@ Future features:
 
 Values can be configured at `(VRising client/server folder)/VRising/BepInEx/config/BetterMissions.cfg`
 
-![difficult](https://github.com/caioreix/BetterMissions/blob/main/difficult.gif)
+![difficult](./difficult.gif)
 
 ```
 
