@@ -4,7 +4,7 @@ Better Missions is a VRising mod that allows you to change servant missions time
 
 ## Instalation (Manual)
 
-- Install [BepInEx](https://docs.bepinex.dev/master/articles/user_guide/installation/index.html)
+- Install [BepInEx](https://thunderstore.io/c/v-rising/p/BepInEx/BepInExPack_V_Rising/)
 - Extract [BetterMissions.dll](https://github.com/caioreix/BetterMissions/releases) into (VRising client folder)/BepInEx/plugins
 - [ServerLaunchFix](https://v-rising.thunderstore.io/package/Mythic/ServerLaunchFix/) recommended for in-game hosted
   games
