@@ -53,8 +53,8 @@ jobs:
           name: v${{ env.GitVersion_SemVer }}
           files: |
             ./dist/BetterMissions.dll
-            ./dist/bepinex-utils.dll
-            ./dist/vrising-utils.dll
+            # ./dist/bepinex-utils.dll
+            # ./dist/vrising-utils.dll
           fail_on_unmatched_files: true
           prerelease: true
           tag_name: v${{ env.GitVersion_SemVer }}
