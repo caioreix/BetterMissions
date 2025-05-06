@@ -1,10 +1,12 @@
+#nullable enable
+
 using System;
 using System.Net.Mime;
 using HarmonyLib;
 using ProjectM.Shared.Systems;
 using UnityEngine;
-using Utils.Logger;
 using Utils.Database;
+using Utils.Logger;
 using Utils.VRising.Entities;
 
 namespace BetterMissions.Hooks;
@@ -22,7 +24,7 @@ public class ServantMissionUpdateSystemPatch {
                 }
 
                 if (Application.productName == "VRisingServer") {
-                    World.Set(GetWorld(nameof (Server)) ?? throw new Exception("There is no Server world (yet). Did you install a server mod on the client?"));
+                    World.Set(GetWorld(nameof(Server)) ?? throw new Exception("There is no Server world (yet). Did you install a server mod on the client?"));
                 }
             } catch (Exception e) {
                 Log.Fatal(e);
@@ -57,17 +59,13 @@ public class ServantMissionUpdateSystemPatch {
             }
         }
     }
-    
-    private static Unity.Entities.World? GetWorld(string name)
-    {
-        foreach (Unity.Entities.World sAllWorld in Unity.Entities.World.s_AllWorlds)
-        {
-            if (sAllWorld.Name == name)
-            {
+
+    private static Unity.Entities.World? GetWorld(string name) {
+        foreach (Unity.Entities.World sAllWorld in Unity.Entities.World.s_AllWorlds) {
+            if (sAllWorld.Name == name) {
                 return sAllWorld;
             }
         }
-        return (Unity.Entities.World) null;
+        return null;
     }
-    
 }
