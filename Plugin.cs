@@ -1,11 +1,12 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using BepInEx.Unity.IL2CPP;
 using BepInEx.Logging;
-using BetterMissions.Database;
+using BepInEx.Unity.IL2CPP;
+// using BetterMissions.Database;
 using HarmonyLib;
 using UnityEngine;
 using Utils.Logger;
+using Utils.VRising.Entities;
 
 namespace BetterMissions;
 
@@ -14,13 +15,13 @@ namespace BetterMissions;
 // [Bloodstone.API.Reloadable]
 public class Plugin : BasePlugin {
     public override void Load() {
-        if (Application.productName == "VRisingServer") Server.Load(this.Config, this.Log);
-        if (Application.productName == "VRising") Client.Load(this.Config, this.Log);
+        if (World.IsServer) Server.Load(this.Config, this.Log);
+        if (World.IsClient) Client.Load(this.Config, this.Log);
     }
 
     public override bool Unload() {
-        if (Application.productName == "VRisingServer") Server.Unload();
-        if (Application.productName == "VRising") Client.Unload();
+        if (World.IsServer) Server.Unload();
+        if (World.IsClient) Client.Unload();
 
         return false;
     }

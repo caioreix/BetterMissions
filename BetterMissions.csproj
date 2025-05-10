@@ -29,7 +29,7 @@
   </Target>
 
   <Import Project="Config.xml" Condition=" '$(Configuration)' == 'Test'" />
-  <Target Name="CopyDLLs" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Test'">
+  <Target Name="CopyDLLs" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Test'">
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildDestinationFolder)/Test" />
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="./dist" />
   </Target>

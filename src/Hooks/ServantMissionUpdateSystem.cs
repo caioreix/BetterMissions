@@ -1,5 +1,3 @@
-#nullable enable
-
 using System;
 using System.Net.Mime;
 using HarmonyLib;
@@ -19,13 +17,15 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnCreate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                if (Application.productName == "VRising") {
-                    World.Set(GetWorld("Client_0") ?? throw new Exception("There is no Client world (yet). Did you install a client mod on the server?"));
-                }
+                // Now handled in VRisingUtils
 
-                if (Application.productName == "VRisingServer") {
-                    World.Set(GetWorld(nameof(Server)) ?? throw new Exception("There is no Server world (yet). Did you install a server mod on the client?"));
-                }
+                // if (Application.productName == "VRising") {
+                //     World.Set(GetWorld("Client_0") ?? throw new Exception("There is no Client world (yet). Did you install a client mod on the server?"));
+                // }
+
+                // if (Application.productName == "VRisingServer") {
+                //     World.Set(GetWorld(nameof(Server)) ?? throw new Exception("There is no Server world (yet). Did you install a server mod on the client?"));
+                // }
             } catch (Exception e) {
                 Log.Fatal(e);
             }
@@ -60,12 +60,12 @@ public class ServantMissionUpdateSystemPatch {
         }
     }
 
-    private static Unity.Entities.World? GetWorld(string name) {
-        foreach (Unity.Entities.World sAllWorld in Unity.Entities.World.s_AllWorlds) {
-            if (sAllWorld.Name == name) {
-                return sAllWorld;
-            }
-        }
-        return null;
-    }
+    // private static Unity.Entities.World? GetWorld(string name) {
+    //     foreach (Unity.Entities.World sAllWorld in Unity.Entities.World.s_AllWorlds) {
+    //         if (sAllWorld.Name == name) {
+    //             return sAllWorld;
+    //         }
+    //     }
+    //     return null;
+    // }
 }
