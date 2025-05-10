@@ -1,6 +1,9 @@
 submodule-init:
 	git submodule update --init
 
+submodule-update:
+	git submodule update --recursive --remote
+
 choco-setup:
 	choco install dotnet-6.0-sdk
 
