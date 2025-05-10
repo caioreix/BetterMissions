@@ -14,28 +14,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 6.0.x
-      - name: Checkout
-        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           submodules: recursive
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
+      - uses: gittools/actions/gitversion/setup@v0.9.7
         with:
           versionSpec: "5.x"
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
 
       - name: Determine Version
         uses: gittools/actions/gitversion/execute@v0.9.7
         with:
-          additionalArguments: '/updateprojectfiles /overrideconfig "mode=Mainline" /overrideconfig "next-version=2.0.0"'
+          additionalArguments: '/updateprojectfiles /overrideconfig "mode=Mainline"'
 
       - name: Build (Release)
         run: dotnet build . --configuration Release -p:Version=$GitVersion_SemVer
@@ -45,7 +37,7 @@ jobs:
         with:
           path: ./dist
 
-      - name: GH Release
+      - name: Generate Pre Release
         uses: softprops/action-gh-release@v1
         if: github.event_name == 'push'
         with:
@@ -53,8 +45,6 @@ jobs:
           name: v${{ env.GitVersion_SemVer }}
           files: |
             ./dist/BetterMissions.dll
-            # ./dist/bepinex-utils.dll
-            # ./dist/vrising-utils.dll
           fail_on_unmatched_files: true
           prerelease: true
           tag_name: v${{ env.GitVersion_SemVer }}
