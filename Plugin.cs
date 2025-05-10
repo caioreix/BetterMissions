@@ -1,39 +1,36 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using BepInEx.Unity.IL2CPP;
 using BepInEx.Logging;
-using BetterMissions.Database;
+using BepInEx.Unity.IL2CPP;
+// using BetterMissions.Database;
 using HarmonyLib;
+using UnityEngine;
 using Utils.Logger;
-using Bloodstone.API;
+using Utils.VRising.Entities;
 
 namespace BetterMissions;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-[BepInDependency("gg.deca.Bloodstone")]
+// [BepInDependency("gg.deca.Bloodstone")]
 // [Bloodstone.API.Reloadable]
-public class Plugin : BasePlugin
-{
-    public override void Load()
-    {
-        if (VWorld.IsServer) Server.Load(this.Config, this.Log);
-        if (VWorld.IsClient) Client.Load(this.Config, this.Log);
+public class Plugin : BasePlugin {
+    public override void Load() {
+        if (World.IsServer) Server.Load(this.Config, this.Log);
+        if (World.IsClient) Client.Load(this.Config, this.Log);
     }
 
-    public override bool Unload()
-    {
-        if (VWorld.IsServer) Server.Unload();
-        if (VWorld.IsClient) Client.Unload();
+    public override bool Unload() {
+        if (World.IsServer) Server.Unload();
+        if (World.IsClient) Client.Unload();
 
         return false;
     }
 }
 
-public static class Server
-{
+public static class Server {
     public static Harmony harmony;
-    internal static void Load(ConfigFile config, ManualLogSource logger)
-    {
+
+    internal static void Load(ConfigFile config, ManualLogSource logger) {
         Settings.Config.Load(config, logger, "Server");
 
         // LocalDB.Load(); // TODO
@@ -46,8 +43,7 @@ public static class Server
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} server side is loaded!");
     }
 
-    internal static bool Unload()
-    {
+    internal static bool Unload() {
         harmony.UnpatchSelf();
         // LocalDB.Save();
 
@@ -56,17 +52,14 @@ public static class Server
     }
 }
 
-internal static class Client
-{
-    internal static void Load(ConfigFile config, ManualLogSource logger)
-    {
+internal static class Client {
+    internal static void Load(ConfigFile config, ManualLogSource logger) {
         Settings.Config.Load(config, logger, "Client");
 
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} client side is loaded!");
     }
 
-    internal static void Unload()
-    {
+    internal static void Unload() {
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} client side is unloaded!");
     }
 }

@@ -41,7 +41,7 @@ jobs:
         run: dotnet build . --configuration Release -p:Version=$GitVersion_SemVer
 
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v4
         with:
           path: ./dist
 
@@ -53,8 +53,8 @@ jobs:
           name: v${{ env.GitVersion_SemVer }}
           files: |
             ./dist/BetterMissions.dll
-            ./dist/bepinex-utils.dll
-            ./dist/vrising-utils.dll
+            # ./dist/bepinex-utils.dll
+            # ./dist/vrising-utils.dll
           fail_on_unmatched_files: true
           prerelease: true
           tag_name: v${{ env.GitVersion_SemVer }}

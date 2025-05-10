@@ -1,8 +1,10 @@
 using System;
+using System.Net.Mime;
 using HarmonyLib;
 using ProjectM.Shared.Systems;
-using Utils.Logger;
+using UnityEngine;
 using Utils.Database;
+using Utils.Logger;
 using Utils.VRising.Entities;
 
 namespace BetterMissions.Hooks;
@@ -15,13 +17,18 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnCreate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                if (Bloodstone.API.VWorld.IsClient) {
-                    World.Set(Bloodstone.API.VWorld.Client);
-                }
-                if (Bloodstone.API.VWorld.IsServer) {
-                    World.Set(Bloodstone.API.VWorld.Server);
-                }
-            } catch (Exception e) { Log.Fatal(e); }
+                // Now handled in VRisingUtils
+
+                // if (Application.productName == "VRising") {
+                //     World.Set(GetWorld("Client_0") ?? throw new Exception("There is no Client world (yet). Did you install a client mod on the server?"));
+                // }
+
+                // if (Application.productName == "VRisingServer") {
+                //     World.Set(GetWorld(nameof(Server)) ?? throw new Exception("There is no Server world (yet). Did you install a server mod on the client?"));
+                // }
+            } catch (Exception e) {
+                Log.Fatal(e);
+            }
         }
     }
 
@@ -29,13 +36,16 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnUpdate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
-                if (!Cache.Exists("ApplyModifiers")) { // Apply modifiers just once.
+                if (!Cache.Exists("ApplyModifiers")) {
+                    // Apply modifiers just once.
                     Cache.Key(
                         "ApplyModifiers",
                         Systems.Mission.ApplyModifiers()
                     );
                 }
-            } catch (Exception e) { Log.Fatal(e); }
+            } catch (Exception e) {
+                Log.Fatal(e);
+            }
         }
     }
 
@@ -44,7 +54,18 @@ public class ServantMissionUpdateSystemPatch {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
                 // Database.LocalDB.Save(); // TODO Database
-            } catch (Exception e) { Log.Fatal(e); }
+            } catch (Exception e) {
+                Log.Fatal(e);
+            }
         }
     }
+
+    // private static Unity.Entities.World? GetWorld(string name) {
+    //     foreach (Unity.Entities.World sAllWorld in Unity.Entities.World.s_AllWorlds) {
+    //         if (sAllWorld.Name == name) {
+    //             return sAllWorld;
+    //         }
+    //     }
+    //     return null;
+    // }
 }

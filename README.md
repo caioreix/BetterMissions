@@ -4,26 +4,28 @@ Better Missions is a VRising mod that allows you to change servant missions time
 
 ## Instalation (Manual)
 
-* Install [BepInEx](https://docs.bepinex.dev/master/articles/user_guide/installation/index.html)
-* Extract [BetterMissions.dll](https://github.com/caioreix/BetterMissions/releases) into (VRising client folder)/BepInEx/plugins
-* [ServerLaunchFix](https://v-rising.thunderstore.io/package/Mythic/ServerLaunchFix/) recommended for in-game hosted
+- Install [BepInEx](https://thunderstore.io/c/v-rising/p/BepInEx/BepInExPack_V_Rising/)
+- Extract [BetterMissions.dll](https://github.com/caioreix/BetterMissions/releases) into (VRising client folder)/BepInEx/plugins
+- [ServerLaunchFix](https://v-rising.thunderstore.io/package/Mythic/ServerLaunchFix/) recommended for in-game hosted
   games
-* (Optional) If not using ServerLaunchFix, extract BetterMissions.dll into (VRising server folder)/BepInEx/plugins
+- (Optional) If not using ServerLaunchFix, extract BetterMissions.dll into (VRising server folder)/BepInEx/plugins
 
 ## How to use
 
-* When you start an mission in the throne it will automatically reduce the time based on defined configs.
+- When you start an mission in the throne it will automatically reduce the time based on defined configs.
 
 Features:
-  - Control the mission duration.
-  - Offline mission duration progress.
-  - Work with other mods that speeds the time, like [CoffinSleep](https://github.com/caioreix/CoffinSleep).
+
+- Control the mission duration.
+- Offline mission duration progress.
+- Work with other mods that speeds the time, like [CoffinSleep](https://github.com/caioreix/CoffinSleep).
 
 Future features:
-  - Real mission duration displayed on the HUD.
-  - Config reduction for each mission on map.
-  - Add chat command to reload server configs.
-  - Level system to send servants to the mission.
+
+- Real mission duration displayed on the HUD.
+- Config reduction for each mission on map.
+- Add chat command to reload server configs.
+- Level system to send servants to the mission.
 
 ## Configuration
 
