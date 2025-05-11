@@ -28,11 +28,16 @@ public static class Mission {
             var key = getMissionSettingsKey(missionSetting, i, missionSettingBuffer.Length);
             if (Database.Mission.Settings.TryGetValue(key, out Database.Mission.Setting ms)
             ) {
+                missionSetting.RaidStability = ms.RaidStability;
                 missionSetting.MissionLength = ms.MissionLength;
                 missionSetting.SuccessRateBonus = ms.SuccessRateBonus;
                 missionSetting.InjuryChance = ms.InjuryChance;
                 missionSetting.LootFactor = ms.LootFactor;
             } else {
+                if (Settings.ENV.EnableMissionRaidStability.Value) {
+                    missionSetting.RaidStability = Settings.ENV.MissionRaidStability.Value;
+                }
+
                 missionSetting.MissionLength /= Settings.ENV.MissionLengthModifier.Value;
                 missionSetting.SuccessRateBonus /= Settings.ENV.MissionSuccessRateBonusModifier.Value;
                 missionSetting.InjuryChance /= Settings.ENV.MissionInjuryChanceModifier.Value;

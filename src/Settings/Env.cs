@@ -6,6 +6,8 @@ namespace BetterMissions.Settings;
 public static class ENV {
     // Mission_General
     private static string missionGeneral = "0.🚩 Mission";
+    public static ConfigElement<bool> EnableMissionRaidStability;
+    public static ConfigElement<ProjectM.RaidStability> MissionRaidStability;
     public static ConfigElement<float> MissionLengthModifier;
     public static ConfigElement<float> MissionSuccessRateBonusModifier;
     public static ConfigElement<float> MissionInjuryChanceModifier;
@@ -15,6 +17,7 @@ public static class ENV {
     private static string missionReckless1 = "1.🚩 Mission-Reckless-1";
     private static ConfigElement<bool> EnableReckless1Settings;
     private static ConfigElement<int> Reckless1MissionLength;
+    private static ConfigElement<ProjectM.RaidStability> Reckless1RaidStability;
     private static ConfigElement<float> Reckless1MissionSuccessRateBonus;
     private static ConfigElement<float> Reckless1MissionInjuryChance;
     private static ConfigElement<float> Reckless1MissionLootFactor;
@@ -23,6 +26,7 @@ public static class ENV {
     private static string missionReckless2 = "2.🚩 Mission-Reckless-2";
     private static ConfigElement<bool> EnableReckless2Settings;
     private static ConfigElement<int> Reckless2MissionLength;
+    private static ConfigElement<ProjectM.RaidStability> Reckless2RaidStability;
     private static ConfigElement<float> Reckless2MissionSuccessRateBonus;
     private static ConfigElement<float> Reckless2MissionInjuryChance;
     private static ConfigElement<float> Reckless2MissionLootFactor;
@@ -31,6 +35,7 @@ public static class ENV {
     private static string missionNormal1 = "3.🚩 Mission-Normal";
     private static ConfigElement<bool> EnableNormal1Settings;
     private static ConfigElement<int> Normal1MissionLength;
+    private static ConfigElement<ProjectM.RaidStability> Normal1RaidStability;
     private static ConfigElement<float> Normal1MissionSuccessRateBonus;
     private static ConfigElement<float> Normal1MissionInjuryChance;
     private static ConfigElement<float> Normal1MissionLootFactor;
@@ -39,6 +44,7 @@ public static class ENV {
     private static string missionPrepared1 = "4.🚩 Mission-Prepared-1";
     private static ConfigElement<bool> EnablePrepared1Settings;
     private static ConfigElement<int> Prepared1MissionLength;
+    private static ConfigElement<ProjectM.RaidStability> Prepared1RaidStability;
     private static ConfigElement<float> Prepared1MissionSuccessRateBonus;
     private static ConfigElement<float> Prepared1MissionInjuryChance;
     private static ConfigElement<float> Prepared1MissionLootFactor;
@@ -47,6 +53,7 @@ public static class ENV {
     private static string missionPrepared2 = "5.🚩 Mission-Prepared-2";
     private static ConfigElement<bool> EnablePrepared2Settings;
     private static ConfigElement<int> Prepared2MissionLength;
+    private static ConfigElement<ProjectM.RaidStability> Prepared2RaidStability;
     private static ConfigElement<float> Prepared2MissionSuccessRateBonus;
     private static ConfigElement<float> Prepared2MissionInjuryChance;
     private static ConfigElement<float> Prepared2MissionLootFactor;
@@ -66,6 +73,20 @@ public static class ENV {
                 nameof(MissionLengthModifier),
                 Constants.Modifier.MissionLength,
                 "Define the mission length modifier. (MissionLength / modifier)"
+            );
+
+            EnableMissionRaidStability = Utils.Settings.Config.Bind(
+                missionGeneral,
+                nameof(EnableMissionRaidStability),
+                false,
+                "Disabled, will use the default mission raid stability settings, if enabled, will use the MissionRaidStability type to all missions type."
+            );
+
+            MissionRaidStability = Utils.Settings.Config.Bind(
+                missionGeneral,
+                nameof(MissionRaidStability),
+                Constants.Modifier.RaidStability,
+                "Define the mission raid stability type. Only used if EnableMissionRaidStability is enabled."
             );
 
             MissionSuccessRateBonusModifier = Utils.Settings.Config.Bind(
@@ -103,6 +124,12 @@ public static class ENV {
                 Constants.Reckless1.MissionLength,
                 "Define the Reckless1 mission length in seconds."
             );
+            Reckless1RaidStability = Utils.Settings.Config.Bind(
+                missionReckless1,
+                nameof(Reckless1RaidStability),
+                Constants.Reckless1.RaidStability,
+                "Define the Reckless1 raid stability."
+            );
             Reckless1MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionReckless1,
                 nameof(Reckless1MissionSuccessRateBonus),
@@ -135,6 +162,12 @@ public static class ENV {
                 nameof(Reckless2MissionLength),
                 Constants.Reckless2.MissionLength,
                 "Define the Reckless2 mission length in seconds."
+            );
+            Reckless2RaidStability = Utils.Settings.Config.Bind(
+                missionReckless2,
+                nameof(Reckless2RaidStability),
+                Constants.Reckless2.RaidStability,
+                "Define the Reckless2 raid stability."
             );
             Reckless2MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionReckless2,
@@ -169,6 +202,12 @@ public static class ENV {
                 Constants.Normal1.MissionLength,
                 "Define the Normal1 mission length in seconds."
             );
+            Normal1RaidStability = Utils.Settings.Config.Bind(
+                missionNormal1,
+                nameof(Normal1RaidStability),
+                Constants.Normal1.RaidStability,
+                "Define the Normal1 raid stability."
+            );
             Normal1MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionNormal1,
                 nameof(Normal1MissionSuccessRateBonus),
@@ -201,6 +240,12 @@ public static class ENV {
                 nameof(Prepared1MissionLength),
                 Constants.Prepared1.MissionLength,
                 "Define the Prepared1 mission length in seconds."
+            );
+            Prepared1RaidStability = Utils.Settings.Config.Bind(
+                missionPrepared1,
+                nameof(Prepared1RaidStability),
+                Constants.Prepared1.RaidStability,
+                "Define the Prepared1 raid stability."
             );
             Prepared1MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionPrepared1,
@@ -235,6 +280,12 @@ public static class ENV {
                 Constants.Prepared2.MissionLength,
                 "Define the Prepared2 mission length in seconds."
             );
+            Prepared2RaidStability = Utils.Settings.Config.Bind(
+                missionPrepared2,
+                nameof(Prepared2RaidStability),
+                Constants.Prepared2.RaidStability,
+                "Define the Prepared2 raid stability."
+            );
             Prepared2MissionSuccessRateBonus = Utils.Settings.Config.Bind(
                 missionPrepared2,
                 nameof(Prepared2MissionSuccessRateBonus),
@@ -263,6 +314,7 @@ public static class ENV {
                 Database.Mission.Settings.TryAdd(
                     Constants.Reckless1.Name,
                     new Database.Mission.Setting() {
+                        RaidStability = Reckless1RaidStability.Value,
                         InjuryChance = Reckless1MissionInjuryChance.Value,
                         LootFactor = Reckless1MissionLootFactor.Value,
                         MissionLength = Reckless1MissionLength.Value,
@@ -276,6 +328,7 @@ public static class ENV {
                 Database.Mission.Settings.TryAdd(
                    Constants.Reckless2.Name,
                     new Database.Mission.Setting() {
+                        RaidStability = Reckless2RaidStability.Value,
                         InjuryChance = Reckless2MissionInjuryChance.Value,
                         LootFactor = Reckless2MissionLootFactor.Value,
                         MissionLength = Reckless2MissionLength.Value,
@@ -289,6 +342,7 @@ public static class ENV {
                 Database.Mission.Settings.TryAdd(
                     Constants.Normal1.Name,
                     new Database.Mission.Setting() {
+                        RaidStability = Normal1RaidStability.Value,
                         InjuryChance = Normal1MissionInjuryChance.Value,
                         LootFactor = Normal1MissionLootFactor.Value,
                         MissionLength = Normal1MissionLength.Value,
@@ -302,6 +356,7 @@ public static class ENV {
                 Database.Mission.Settings.TryAdd(
                     Constants.Prepared1.Name,
                     new Database.Mission.Setting() {
+                        RaidStability = Prepared1RaidStability.Value,
                         InjuryChance = Prepared1MissionInjuryChance.Value,
                         LootFactor = Prepared1MissionLootFactor.Value,
                         MissionLength = Prepared1MissionLength.Value,
@@ -315,6 +370,7 @@ public static class ENV {
                 Database.Mission.Settings.TryAdd(
                     Constants.Prepared2.Name,
                     new Database.Mission.Setting() {
+                        RaidStability = Prepared2RaidStability.Value,
                         InjuryChance = Prepared2MissionInjuryChance.Value,
                         LootFactor = Prepared2MissionLootFactor.Value,
                         MissionLength = Prepared2MissionLength.Value,
