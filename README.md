@@ -92,8 +92,8 @@ EnableReckless2Settings = false
 
 ## Define the Reckless2 mission length in seconds.
 # Setting type: Single
-# Default value: 1440
-Reckless2MissionLength = 1440
+# Default value: 14400
+Reckless2MissionLength = 14400
 
 ## Define the Reckless2 mission success rate bonus.
 # Setting type: Single
@@ -119,8 +119,8 @@ EnableNormal1Settings = false
 
 ## Define the Normal1 mission length in seconds.
 # Setting type: Single
-# Default value: 28800
-Normal1MissionLength = 28800
+# Default value: 23400
+Normal1MissionLength = 23400
 
 ## Define the Normal1 mission success rate bonus.
 # Setting type: Single
@@ -146,8 +146,8 @@ EnablePrepared1Settings = false
 
 ## Define the Prepared1 mission length in seconds.
 # Setting type: Single
-# Default value: 57600
-Prepared1MissionLength = 57600
+# Default value: 36000
+Prepared1MissionLength = 36000
 
 ## Define the Prepared1 mission success rate bonus.
 # Setting type: Single
@@ -173,8 +173,8 @@ EnablePrepared2Settings = false
 
 ## Define the Prepared2 mission length in seconds.
 # Setting type: Single
-# Default value: 82800
-Prepared2MissionLength = 82800
+# Default value: 57600
+Prepared2MissionLength = 57600
 
 ## Define the Prepared2 mission success rate bonus.
 # Setting type: Single

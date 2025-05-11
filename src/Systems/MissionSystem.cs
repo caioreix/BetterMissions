@@ -1,5 +1,6 @@
-using Utils.Logger;
+using BetterMissions.Common;
 using Utils.Database;
+using Utils.Logger;
 using Utils.VRising.Entities;
 
 namespace BetterMissions.Systems;
@@ -17,15 +18,26 @@ public static class Mission {
         }
 
         for (int i = 0; i < missionSettingBuffer.Length; i++) {
+            Log.Debug($"RaidStability {i}: {missionSettingBuffer[i].RaidStability}"); // TODO: remove
+            Log.Debug($"SuccessRateBonus {i}: {missionSettingBuffer[i].SuccessRateBonus}"); // TODO: remove
+            Log.Debug($"MissionLength {i}: {missionSettingBuffer[i].MissionLength}"); // TODO: remove
+            Log.Debug($"InjuryChance {i}: {missionSettingBuffer[i].InjuryChance}"); // TODO: remove
+            Log.Debug($"LootFactor {i}: {missionSettingBuffer[i].LootFactor}"); // TODO: remove
+
             var missionSetting = missionSettingBuffer[i];
-            var key = getMissionSettingsKey(missionSetting.MissionLength);
+            var key = getMissionSettingsKey(missionSetting, i, missionSettingBuffer.Length);
             if (Database.Mission.Settings.TryGetValue(key, out Database.Mission.Setting ms)
             ) {
+                missionSetting.RaidStability = ms.RaidStability;
                 missionSetting.MissionLength = ms.MissionLength;
                 missionSetting.SuccessRateBonus = ms.SuccessRateBonus;
                 missionSetting.InjuryChance = ms.InjuryChance;
                 missionSetting.LootFactor = ms.LootFactor;
             } else {
+                if (Settings.ENV.EnableMissionRaidStability.Value) {
+                    missionSetting.RaidStability = Settings.ENV.MissionRaidStability.Value;
+                }
+
                 missionSetting.MissionLength /= Settings.ENV.MissionLengthModifier.Value;
                 missionSetting.SuccessRateBonus /= Settings.ENV.MissionSuccessRateBonusModifier.Value;
                 missionSetting.InjuryChance /= Settings.ENV.MissionInjuryChanceModifier.Value;
@@ -38,20 +50,25 @@ public static class Mission {
         return true;
     }
 
-    private static string getMissionSettingsKey(float missionLength) {
-        switch (missionLength) {
-            case 7200:
-                return "Reckless_1";
-            case 14400:
-                return "Reckless_2";
-            case 28800:
-                return "Normal_1";
-            case 57600:
-                return "Prepared_1";
-            case 82800:
-                return "Prepared_2";
-            default:
-                return "";
+    private static string getMissionSettingsKey(ProjectM.ServantMissionSetting missionSetting, int index = -1, int size = -1) {
+        if (index == -1 || size != 5) {
+            return missionSetting.MissionLength switch {
+                Constants.Reckless1.MissionLength => Constants.Reckless1.Name,
+                Constants.Reckless2.MissionLength => Constants.Reckless2.Name,
+                Constants.Normal1.MissionLength => Constants.Normal1.Name,
+                Constants.Prepared1.MissionLength => Constants.Prepared1.Name,
+                Constants.Prepared2.MissionLength => Constants.Prepared2.Name,
+                _ => "",
+            };
         }
+
+        return index switch {
+            Constants.Reckless1.Index => Constants.Reckless1.Name,
+            Constants.Reckless2.Index => Constants.Reckless2.Name,
+            Constants.Normal1.Index => Constants.Normal1.Name,
+            Constants.Prepared1.Index => Constants.Prepared1.Name,
+            Constants.Prepared2.Index => Constants.Prepared2.Name,
+            _ => "",
+        };
     }
 }

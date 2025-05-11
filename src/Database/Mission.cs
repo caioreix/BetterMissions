@@ -14,6 +14,7 @@ public static class Mission {
 
 
     public struct Setting {
+        public ProjectM.RaidStability RaidStability { get; set; }
         public float SuccessRateBonus { get; set; }
         public float MissionLength { get; set; }
         public float InjuryChance { get; set; }
