@@ -2,7 +2,7 @@ name: Release
 
 on:
   release:
-    types: [published, edited]  # Inclui 'edited' para capturar conversão de pre-release
+    types: [published, edited]
   workflow_dispatch:
     inputs:
       tag_name:
@@ -15,8 +15,7 @@ jobs:
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event.action == 'published' ||
-      (github.event.action == 'edited' && github.event.release.prerelease == false) &&
-      github.event.release.tag_name == '${{ steps.get_last_release.outputs.last_tag }}'
+      (github.event.action == 'edited' && github.event.release.prerelease == false)
     env:
       RELEASE_TAG: ${{ github.event.inputs.tag_name || github.event.release.tag_name }}
     runs-on: ubuntu-latest
@@ -34,6 +33,13 @@ jobs:
           LAST_TAG=$(git describe --tags --abbrev=0)
           echo "last_tag=${LAST_TAG}" >> $GITHUB_ENV
           echo "::set-output name=last_tag::${LAST_TAG}"
+
+      - name: Check if LAST_TAG equals RELEASE_TAG
+        run: |
+          if [ "$LAST_TAG" != "$RELEASE_TAG" ]; then
+            echo "Error: LAST_TAG ($LAST_TAG) does not match RELEASE_TAG ($RELEASE_TAG)"
+            exit 1
+          fi
 
       - name: Download Release
         run: gh release download v${{ env.RELEASE_TAG }} -D ./dist
