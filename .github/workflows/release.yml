@@ -31,13 +31,14 @@ jobs:
         id: get_last_release
         run: |
           LAST_TAG=$(git describe --tags --abbrev=0)
-          echo "last_tag=${LAST_TAG}" >> $GITHUB_ENV
+          echo "LAST_TAG=${LAST_TAG}" >> $GITHUB_ENV
           echo "::set-output name=last_tag::${LAST_TAG}"
 
       - name: Check if LAST_TAG equals RELEASE_TAG
+        if: github.event.action == 'edited'
         run: |
-          if [ "$LAST_TAG" != "$RELEASE_TAG" ]; then
-            echo "Error: LAST_TAG ($LAST_TAG) does not match RELEASE_TAG ($RELEASE_TAG)"
+          if [ ${{ env.LAST_TAG }} != ${{ env.RELEASE_TAG }} ]; then
+            echo "Error: LAST_TAG (${{ env.LAST_TAG }}) does not match RELEASE_TAG (${{ env.RELEASE_TAG }})"
             exit 1
           fi
 
