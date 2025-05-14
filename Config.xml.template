@@ -1,5 +1,6 @@
 ﻿<Project>
   <PropertyGroup>
-    <BuildDestinationFolder>C:\VRisingPath\BepInEx\plugins\</BuildDestinationFolder>
+    <BuildClientDestinationFolder>C:\VRisingPath\BepInEx\plugins\</BuildClientDestinationFolder>
+    <BuildServerDestinationFolder>C:\VRisingPath\BepInEx\plugins\</BuildServerDestinationFolder>
   </PropertyGroup>
 </Project>
