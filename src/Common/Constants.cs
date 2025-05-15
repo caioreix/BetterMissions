@@ -12,7 +12,9 @@ public static class Constants {
 
     public static class Reckless1 {
         public const string Name = "Reckless_1";
-        public const string LengthString = "2:00:00";
+        public const string DefaultMissionLengthString = "2:00:00";
+        public const string DefaultInjuryChanceString = "25";
+        public const string DefaultSuccessRateBonusString = "0";
         public const int Index = 0;
         public const ProjectM.RaidStability RaidStability = ProjectM.RaidStability.Reckless;
         public const float SuccessRateBonus = 0f;
@@ -23,7 +25,9 @@ public static class Constants {
 
     public static class Reckless2 {
         public const string Name = "Reckless_2";
-        public const string LengthString = "4:00:00";
+        public const string DefaultMissionLengthString = "4:00:00";
+        public const string DefaultInjuryChanceString = "25";
+        public const string DefaultSuccessRateBonusString = "5";
         public const int Index = 1;
         public const ProjectM.RaidStability RaidStability = ProjectM.RaidStability.Reckless;
         public const float SuccessRateBonus = 0.05f;
@@ -34,7 +38,9 @@ public static class Constants {
 
     public static class Normal1 {
         public const string Name = "Normal_1";
-        public const string LengthString = "6:30:00";
+        public const string DefaultMissionLengthString = "6:30:00";
+        public const string DefaultInjuryChanceString = "20";
+        public const string DefaultSuccessRateBonusString = "10";
         public const int Index = 2;
         public const ProjectM.RaidStability RaidStability = ProjectM.RaidStability.Normal;
         public const float SuccessRateBonus = 0.1f;
@@ -45,7 +51,9 @@ public static class Constants {
 
     public static class Prepared1 {
         public const string Name = "Prepared_1";
-        public const string LengthString = "10:00:00";
+        public const string DefaultMissionLengthString = "10:00:00";
+        public const string DefaultInjuryChanceString = "15";
+        public const string DefaultSuccessRateBonusString = "15";
         public const int Index = 3;
         public const ProjectM.RaidStability RaidStability = ProjectM.RaidStability.Prepared;
         public const float SuccessRateBonus = 0.15f;
@@ -56,7 +64,10 @@ public static class Constants {
 
     public static class Prepared2 {
         public const string Name = "Prepared_2";
-        public const string LengthString = "16:00:00";
+        public const string DefaultMissionLengthString = "16:00:00";
+
+        public const string DefaultInjuryChanceString = "15";
+        public const string DefaultSuccessRateBonusString = "20";
         public const int Index = 4;
         public const ProjectM.RaidStability RaidStability = ProjectM.RaidStability.Prepared;
         public const float SuccessRateBonus = 0.2f;

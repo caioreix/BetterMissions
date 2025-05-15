@@ -19,4 +19,15 @@ public class LocalizedTextPatch {
             }
         }
     }
+
+    [HarmonyPatch(typeof(LocalizedText), nameof(LocalizedText.SetKeyValue))]
+    public class SetKeyValue {
+        public static void Prefix(LocalizedText __instance, ref Stunlock.Localization.LocalizedKeyValue keyValue) {
+            try {
+                Mission.UpdateMissionUI(__instance, keyValue);
+            } catch (Exception ex) {
+                Log.Warning($"Exception in patch of void LocalizedText::SetKeyValue(Stunlock.Localization.LocalizedKeyValue keyValue):\n{ex}");
+            }
+        }
+    }
 }

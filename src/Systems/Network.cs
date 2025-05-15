@@ -13,7 +13,6 @@ public static class CustomNetwork {
 
     public enum MessageType {
         None,
-        ClientLoaded,
         UpdateClientMissionData,
     }
 
@@ -41,9 +40,6 @@ public static class CustomNetwork {
 
     public static void ProcessMessage(MessageType messageType, string message) {
         switch (messageType) {
-            case MessageType.ClientLoaded:
-                Mission.HandleClientLoadedMessage(message);
-                break;
             case MessageType.UpdateClientMissionData:
                 Mission.HandleUpdateMissionDataMessage(message);
                 break;

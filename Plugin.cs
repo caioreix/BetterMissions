@@ -67,7 +67,10 @@ internal static class Client {
         Log.Trace("Patching harmony");
         harmony.CreateClassProcessor(typeof(LocalizedTextPatch.UpdateText)).Patch();
         harmony.CreateClassProcessor(typeof(ClientBootstrapSystemPatch.OnDestroy)).Patch();
+        harmony.CreateClassProcessor(typeof(ClientBootstrapSystemPatch.OnCreate)).Patch();
         harmony.CreateClassProcessor(typeof(ClientChatSystemPatch.OnUpdate)).Patch();
+        // harmony.CreateClassProcessor(typeof(ServantHelperPatch.GetMissionSuccessChanceForServant_Client)).Patch();
+        // harmony.CreateClassProcessor(typeof(ServantHelperPatch.TryGetMissionSetting)).Patch();
 
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} client side is loaded!");
     }

@@ -37,7 +37,6 @@ public class ClientChatSystemPatch {
             } finally {
                 entities.Dispose();
             }
-
         }
     }
 
