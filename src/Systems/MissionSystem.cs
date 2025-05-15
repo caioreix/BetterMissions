@@ -1,3 +1,5 @@
+using System;
+using System.Text.Json;
 using BetterMissions.Common;
 using Utils.Database;
 using Utils.Logger;
@@ -5,9 +7,58 @@ using Utils.VRising.Entities;
 
 namespace BetterMissions.Systems;
 
-public static class Mission {
+public class Mission {
     public static void Setup() {
         DB.AddCleanActions();
+    }
+
+    public static void UpdateUserDataUI(ProjectM.Network.User user) {
+        Unity.Entities.DynamicBuffer<ProjectM.ServantMissionSetting> missionSettingBuffer = ServantMissionSetting.GetBuffer();
+        if (!missionSettingBuffer.IsCreated || missionSettingBuffer.Length != 5) {
+            Log.Error("ServantMissionSetting buffer is not created");
+            return;
+        }
+
+        string json = JsonSerializer.Serialize(MissionSettingBufferToArray(missionSettingBuffer));
+        string wrappedMessage = CustomNetwork.WrapMessage(
+            CustomNetwork.MessageType.UpdateClientMissionData,
+            json
+        );
+
+        CustomNetwork.SendSystemMessageToClient(
+            user,
+            wrappedMessage
+        );
+    }
+
+    private static void MissionSettingArrayToBuffer(Models.ServantMissionSetting[] missionSettingArray, ref Unity.Entities.DynamicBuffer<ProjectM.ServantMissionSetting> missionSettingBuffer) {
+        for (int i = 0; i < missionSettingArray.Length; i++) {
+            var missionSetting = missionSettingBuffer[i];
+
+            missionSetting.RaidStability = missionSettingArray[i].RaidStability;
+            missionSetting.MissionLength = missionSettingArray[i].MissionLength;
+            missionSetting.SuccessRateBonus = missionSettingArray[i].SuccessRateBonus;
+            missionSetting.InjuryChance = missionSettingArray[i].InjuryChance;
+            missionSetting.LootFactor = missionSettingArray[i].LootFactor;
+
+            missionSettingBuffer[i] = missionSetting;
+        }
+    }
+
+    public static void HandleUpdateMissionDataMessage(string message) {
+        try {
+            var missionSettingBuffer = ServantMissionSetting.GetBuffer();
+            if (missionSettingBuffer.IsCreated) {
+                MissionSettingArrayToBuffer(
+                    JsonSerializer.Deserialize<Models.ServantMissionSetting[]>(message),
+                    ref missionSettingBuffer
+                );
+
+                string json = JsonSerializer.Serialize(MissionSettingBufferToArray(missionSettingBuffer));
+            }
+        } catch (Exception e) {
+            Log.Error(e);
+        }
     }
 
     // ApplyModifiers will return true if the modifiers are applied to the ServantMissionSetting, else return false
@@ -18,14 +69,8 @@ public static class Mission {
         }
 
         for (int i = 0; i < missionSettingBuffer.Length; i++) {
-            Log.Debug($"RaidStability {i}: {missionSettingBuffer[i].RaidStability}"); // TODO: remove
-            Log.Debug($"SuccessRateBonus {i}: {missionSettingBuffer[i].SuccessRateBonus}"); // TODO: remove
-            Log.Debug($"MissionLength {i}: {missionSettingBuffer[i].MissionLength}"); // TODO: remove
-            Log.Debug($"InjuryChance {i}: {missionSettingBuffer[i].InjuryChance}"); // TODO: remove
-            Log.Debug($"LootFactor {i}: {missionSettingBuffer[i].LootFactor}"); // TODO: remove
-
             var missionSetting = missionSettingBuffer[i];
-            var key = getMissionSettingsKey(missionSetting, i, missionSettingBuffer.Length);
+            var key = GetMissionSettingsKey(missionSetting, i, missionSettingBuffer.Length);
             if (Database.Mission.Settings.TryGetValue(key, out Database.Mission.Setting ms)
             ) {
                 missionSetting.RaidStability = ms.RaidStability;
@@ -50,7 +95,21 @@ public static class Mission {
         return true;
     }
 
-    private static string getMissionSettingsKey(ProjectM.ServantMissionSetting missionSetting, int index = -1, int size = -1) {
+    private static Models.ServantMissionSetting[] MissionSettingBufferToArray(Unity.Entities.DynamicBuffer<ProjectM.ServantMissionSetting> missionSettingBuffer) {
+        var array = new Models.ServantMissionSetting[missionSettingBuffer.Length];
+        for (int i = 0; i < missionSettingBuffer.Length; i++) {
+            array[i] = new Models.ServantMissionSetting {
+                MissionLength = missionSettingBuffer[i].MissionLength,
+                InjuryChance = missionSettingBuffer[i].InjuryChance,
+                SuccessRateBonus = missionSettingBuffer[i].SuccessRateBonus,
+                RaidStability = missionSettingBuffer[i].RaidStability,
+                LootFactor = missionSettingBuffer[i].LootFactor
+            };
+        }
+        return array;
+    }
+
+    private static string GetMissionSettingsKey(ProjectM.ServantMissionSetting missionSetting, int index = -1, int size = -1) {
         if (index == -1 || size != 5) {
             return missionSetting.MissionLength switch {
                 Constants.Reckless1.MissionLength => Constants.Reckless1.Name,
