@@ -1,7 +1,4 @@
-
-
 namespace BetterMissions.Models;
-
 
 public class ServantMissionSetting {
     public float InjuryChance { get; set; }

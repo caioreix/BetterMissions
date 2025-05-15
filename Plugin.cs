@@ -1,22 +1,15 @@
-﻿using System.Collections;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using BetterMissions.Hooks.Client;
-
-// using BetterMissions.Database;
 using HarmonyLib;
-using ProjectM.Physics;
-using UnityEngine;
 using Utils.Logger;
 using Utils.VRising.Entities;
 
 namespace BetterMissions;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-// [BepInDependency("gg.deca.Bloodstone")]
-// [Bloodstone.API.Reloadable]
 public class Plugin : BasePlugin {
     public override void Load() {
         if (World.IsServer) Server.Load(this.Config, this.Log);
@@ -37,9 +30,6 @@ public static class Server {
 
     internal static void Load(ConfigFile config, ManualLogSource logger) {
         Settings.Config.Load(config, logger, "Server");
-
-        // LocalDB.Load(); // TODO
-
         harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
 
         Log.Trace("Patching harmony");
@@ -65,12 +55,8 @@ internal static class Client {
         harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
 
         Log.Trace("Patching harmony");
-        harmony.CreateClassProcessor(typeof(LocalizedTextPatch.UpdateText)).Patch();
         harmony.CreateClassProcessor(typeof(ClientBootstrapSystemPatch.OnDestroy)).Patch();
-        harmony.CreateClassProcessor(typeof(ClientBootstrapSystemPatch.OnCreate)).Patch();
         harmony.CreateClassProcessor(typeof(ClientChatSystemPatch.OnUpdate)).Patch();
-        // harmony.CreateClassProcessor(typeof(ServantHelperPatch.GetMissionSuccessChanceForServant_Client)).Patch();
-        // harmony.CreateClassProcessor(typeof(ServantHelperPatch.TryGetMissionSetting)).Patch();
 
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} client side is loaded!");
     }

@@ -1,6 +1,3 @@
-
-
-
 using System;
 using ProjectM;
 using ProjectM.Network;
@@ -9,7 +6,7 @@ using Utils.Logger;
 namespace BetterMissions.Systems;
 
 public static class CustomNetwork {
-    private static string _messagePrefix = "[BetterMissions] ";
+    private const string _messagePrefix = "If you see this, you need to install BetterMissions! ";
 
     public enum MessageType {
         None,

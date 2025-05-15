@@ -13,8 +13,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Nullable>disable</Nullable>
-    <NoWarn>IDE0130</NoWarn>
-    <NoWarn>NU5104</NoWarn>
+    <NoWarn>IDE0130;NU5104</NoWarn>
 
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>

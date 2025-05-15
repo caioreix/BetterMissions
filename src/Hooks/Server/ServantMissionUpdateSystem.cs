@@ -13,8 +13,8 @@ public class ServantMissionUpdateSystemPatch {
     public static class OnUpdate {
         public static void Prefix(ServantMissionUpdateSystem __instance) {
             try {
+                // Apply modifiers just once.
                 if (!Cache.Exists("ApplyModifiers")) {
-                    // Apply modifiers just once.
                     Cache.Key(
                         "ApplyModifiers",
                         Systems.Mission.ApplyModifiers()
