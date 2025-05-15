@@ -55,7 +55,6 @@ public class Mission {
                 );
 
                 string json = JsonSerializer.Serialize(MissionSettingBufferToArray(missionSettingBuffer));
-                Log.Info($"MissionSettingBuffer: {json}");
             }
         } catch (Exception e) {
             Log.Error(e);
