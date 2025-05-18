@@ -24,7 +24,9 @@ public class ServerBootstrapSystemPatch {
                 if (userEntity == Entity.Null) return;
                 User user = userEntity.Read<User>();
 
-                Mission.UpdateUserDataUI(user);
+                if (!Mission.IsUserUIDisabled(user)) {
+                    Mission.UpdateUserDataUI(user);
+                }
             } catch (Exception e) {
                 Log.Fatal(e);
             }

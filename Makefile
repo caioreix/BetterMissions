@@ -38,3 +38,10 @@ clean:
 	@if exist "./src/Utils/BepInEx-Utils/bin" rmdir /s /q "./src/Utils/BepInEx-Utils/bin"
 	@if exist "./src/Utils/BepInEx-Utils/obj" rmdir /s /q "./src/Utils/BepInEx-Utils/obj"
 	@if exist "./src/Utils/BepInEx-Utils/dist" rmdir /s /q "./src/Utils/BepInEx-Utils/dist"
+
+APPDATA := $(shell echo %APPDATA%)
+STEAMDIR := $(shell echo %ProgramFiles%)
+
+open-folders:
+	- explorer.exe "$(STEAMDIR)\Steam\steamapps\common\VRising"
+	- explorer.exe "$(APPDATA)\Thunderstore Mod Manager\DataFolder\VRising\profiles\Default"

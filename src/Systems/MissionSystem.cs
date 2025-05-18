@@ -1,6 +1,8 @@
 using System;
 using System.Text.Json;
 using BetterMissions.Common;
+using Il2CppSystem.Collections.Concurrent;
+using Unity.Entities;
 using Utils.Database;
 using Utils.Logger;
 using Utils.VRising.Entities;
@@ -8,12 +10,18 @@ using Utils.VRising.Entities;
 namespace BetterMissions.Systems;
 
 public class Mission {
+    private readonly static ConcurrentDictionary<ulong, bool> _disabledPlayers = new();
+
     public static void Setup() {
         DB.AddCleanActions();
     }
 
     public static void UpdateUserDataUI(ProjectM.Network.User user) {
-        Unity.Entities.DynamicBuffer<ProjectM.ServantMissionSetting> missionSettingBuffer = ServantMissionSetting.GetBuffer();
+        if (_disabledPlayers.TryGetValue(user.PlatformId, out bool disabled) && disabled) {
+            return;
+        }
+
+        DynamicBuffer<ProjectM.ServantMissionSetting> missionSettingBuffer = ServantMissionSetting.GetBuffer();
         if (!missionSettingBuffer.IsCreated || missionSettingBuffer.Length != 5) {
             Log.Error("ServantMissionSetting buffer is not created");
             return;
@@ -29,6 +37,31 @@ public class Mission {
             user,
             wrappedMessage
         );
+    }
+
+    public static bool IsUserUIDisabled(ProjectM.Network.User user) {
+        if (_disabledPlayers.TryGetValue(user.PlatformId, out bool disabled) && disabled) {
+            CustomNetwork.SendSystemMessageToClient(user, $"You have disabled the {MyPluginInfo.PLUGIN_NAME} UI sync. Type '{CustomNetwork._enableCommand}' to re-enable it.");
+            return true;
+        }
+        return false;
+    }
+
+    public static void DisableUserUISync(ProjectM.Network.User user) {
+        if (!_disabledPlayers.TryAdd(user.PlatformId, true)) {
+            CustomNetwork.SendSystemMessageToClient(user, $"Failed to disable the {MyPluginInfo.PLUGIN_NAME} UI sync. Try again later or contact admin.");
+            return;
+        }
+        CustomNetwork.SendSystemMessageToClient(user, $"You disabled the {MyPluginInfo.PLUGIN_NAME} UI sync. Type '{CustomNetwork._enableCommand}' to re-enable it.");
+    }
+
+    public static void EnableUserUISync(ProjectM.Network.User user) {
+        if (_disabledPlayers.ContainsKey(user.PlatformId) && !_disabledPlayers.TryRemove(user.PlatformId, out _)) {
+            CustomNetwork.SendSystemMessageToClient(user, $"Failed to enable the {MyPluginInfo.PLUGIN_NAME} UI sync. Try again later or contact admin.");
+            return;
+        }
+        CustomNetwork.SendSystemMessageToClient(user, $"You enabled the {MyPluginInfo.PLUGIN_NAME} UI sync. Type '{CustomNetwork._disableMessage}' to disable it.");
+        UpdateUserDataUI(user);
     }
 
     private static void MissionSettingArrayToBuffer(Models.ServantMissionSetting[] missionSettingArray, ref Unity.Entities.DynamicBuffer<ProjectM.ServantMissionSetting> missionSettingBuffer) {
