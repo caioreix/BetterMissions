@@ -26,17 +26,18 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-      - name: Trim 'v' prefix from RELEASE_TAG if it exists
-        run: |
-          TRIMMED_TAG=$(echo ${{ env.RELEASE_TAG }} | sed 's/^v//')
-          echo "RELEASE_TAG=${TRIMMED_TAG}" >> $GITHUB_ENV
       - name: Get the last release tag
         id: get_last_release
         run: |
           LAST_TAG=$(git describe --tags --abbrev=0)
           echo "LAST_TAG=${LAST_TAG}" >> $GITHUB_ENV
           echo "::set-output name=last_tag::${LAST_TAG}"
-
+      - name: Trim 'v' prefix from RELEASE_TAG and LAST_TAG if it exists
+        run: |
+          TRIMMED_RELEASE_TAG=$(echo ${{ env.RELEASE_TAG }} | sed 's/^v//')
+          echo "RELEASE_TAG=${TRIMMED_RELEASE_TAG}" >> $GITHUB_ENV
+          TRIMMED_LAST_TAG=$(echo ${{ env.LAST_TAG }} | sed 's/^v//')
+          echo "LAST_TAG=${TRIMMED_LAST_TAG}" >> $GITHUB_ENV
       - name: Check if LAST_TAG equals RELEASE_TAG
         if: github.event.action == 'edited'
         run: |
