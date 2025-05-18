@@ -6,15 +6,16 @@
     <RootNamespace>BetterMissions</RootNamespace>
     <Authors>caioreix</Authors>
     <Description>An VRising mod to do a better control of the servant missions.</Description>
-    <BepInExVersion>6.0.0-be.733</BepInExVersion>
     <Version>0.0.0</Version>
+    <Nullable>disable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Nullable>disable</Nullable>
     <NoWarn>IDE0130;NU5104</NoWarn>
 
+    <BepInExVersion>6.0.0-be.733</BepInExVersion>
+
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
@@ -39,7 +40,7 @@
     <PackageReference Include="BepInEx.Unity.IL2CPP" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.Core" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="VRising.Unhollowed.Client" Version="1.1.7.9169101" />
+    <PackageReference Include="VRising.Unhollowed.Client" Version="1.1.8.9179701" />
   </ItemGroup>
 
 </Project>

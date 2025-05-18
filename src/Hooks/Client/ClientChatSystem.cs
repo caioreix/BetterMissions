@@ -22,7 +22,7 @@ public class ClientChatSystemPatch {
                             ChatMessageServerEvent chatMessage = entity.Read<ChatMessageServerEvent>();
 
                             MessageType messageType = CheckMessage(chatMessage.MessageText.Value, out string unwrappedMessage);
-                            if (messageType != MessageType.None) {
+                            if (messageType != MessageType.InvalidMessage) {
                                 HandleServerMessage(messageType, unwrappedMessage);
                                 entity.Destroy();
                             }
