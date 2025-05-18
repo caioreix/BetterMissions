@@ -5,7 +5,8 @@ Better Missions is a VRising mod that allows you to change servant missions time
 ## Instalation (Manual)
 
 - Install [BepInEx](https://thunderstore.io/c/v-rising/p/BepInEx/BepInExPack_V_Rising/)
-- Extract [BetterMissions.dll](https://github.com/caioreix/BetterMissions/releases) into (VRising client folder)/BepInEx/plugins
+- Extract [BetterMissions.dll](https://github.com/caioreix/BetterMissions/releases) into (VRising client folder)/VRising_Server/BepInEx/plugins
+- To synchronize values, you must also install the mod on the client side into (VRising client folder)/BepInEx/plugins.
 - [ServerLaunchFix](https://v-rising.thunderstore.io/package/Mythic/ServerLaunchFix/) recommended for in-game hosted
   games
 - (Optional) If not using ServerLaunchFix, extract BetterMissions.dll into (VRising server folder)/BepInEx/plugins
@@ -13,19 +14,23 @@ Better Missions is a VRising mod that allows you to change servant missions time
 ## How to use
 
 - When you start an mission in the throne it will automatically reduce the time based on defined configs.
+- Starting from version 2.2.0, the mod validates client and server versions for compatibility and allows enabling or disabling UI synchronization via in-game commands.
 
 Features:
 
 - Control the mission duration.
 - Offline mission duration progress.
 - Work with other mods that speeds the time, like [CoffinSleep](https://github.com/caioreix/CoffinSleep).
+- Client-server version validation to ensure compatibility.
+- UI synchronization between client and server.
+- Runtime control of UI synchronization by commands.
 
-Future features:
+## Commands
 
-- Real mission duration displayed on the HUD.
-- Config reduction for each mission on map.
-- Add chat command to reload server configs.
-- Level system to send servants to the mission.
+The following commands can be used in the game chat:
+
+- `.bm.ui.enable` - Enable UI synchronization with the server
+- `.bm.ui.enable` - Disable UI synchronization with the server
 
 ## Configuration
 

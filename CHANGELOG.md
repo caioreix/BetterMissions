@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## `2.2.0`
+### Added
+- Version validation between client and server to ensure compatibility.
+- Command system to enable/disable UI synchronization at runtime on client.
+- New configuration options for controlling synchronization behavior.
+
+### Improved
+- Overall client-server communication stability.
+- User experience with more control over synchronization features.
+
 ## `2.1.0`
 ### Added
 - Client UI synchronization with server.
