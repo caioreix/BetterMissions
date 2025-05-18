@@ -30,7 +30,7 @@ Features:
 The following commands can be used in the game chat:
 
 - `.bm.ui.enable` - Enable UI synchronization with the server
-- `.bm.ui.enable` - Disable UI synchronization with the server
+- `.bm.ui.disable` - Disable UI synchronization with the server
 
 ## Configuration
 
@@ -39,12 +39,23 @@ Values can be configured at `(VRising client/server folder)/VRising/BepInEx/conf
 ![difficult](./difficult.gif)
 
 ```
-
 [0.🚩 Mission]
+
 ## Define the mission length modifier. (MissionLength / modifier)
 # Setting type: Single
 # Default value: 2
 MissionLengthModifier = 2
+
+## Disabled, will use the default mission raid stability settings, if enabled, will use the MissionRaidStability type to all missions type.
+# Setting type: Boolean
+# Default value: false
+EnableMissionRaidStability = false
+
+## Define the mission raid stability type. Only used if EnableMissionRaidStability is enabled.
+# Setting type: RaidStability
+# Default value: Normal
+# Acceptable values: Reckless, Prepared, Normal
+MissionRaidStability = Normal
 
 ## Define the mission success rate bonus modifier. (MissionSuccessRateBonus / modifier)
 # Setting type: Single
@@ -69,19 +80,25 @@ MissionLootFactorModifier = 1
 EnableReckless1Settings = false
 
 ## Define the Reckless1 mission length in seconds.
-# Setting type: Single
+# Setting type: Int32
 # Default value: 7200
 Reckless1MissionLength = 7200
 
+## Define the Reckless1 raid stability.
+# Setting type: RaidStability
+# Default value: Reckless
+# Acceptable values: Reckless, Prepared, Normal
+Reckless1RaidStability = Reckless
+
 ## Define the Reckless1 mission success rate bonus.
 # Setting type: Single
-# Default value: -0.2
-Reckless1MissionSuccessRateBonus = -0.2
+# Default value: 0
+Reckless1MissionSuccessRateBonus = 0
 
 ## Define the Reckless1 mission injury chance bonus.
 # Setting type: Single
-# Default value: 0.3
-Reckless1MissionInjuryChance = 0.3
+# Default value: 0.25
+Reckless1MissionInjuryChance = 0.25
 
 ## Define the Reckless1 mission loot factor bonus.
 # Setting type: Single
@@ -96,19 +113,25 @@ Reckless1MissionLootFactor = 0.5
 EnableReckless2Settings = false
 
 ## Define the Reckless2 mission length in seconds.
-# Setting type: Single
+# Setting type: Int32
 # Default value: 14400
 Reckless2MissionLength = 14400
 
+## Define the Reckless2 raid stability.
+# Setting type: RaidStability
+# Default value: Reckless
+# Acceptable values: Reckless, Prepared, Normal
+Reckless2RaidStability = Reckless
+
 ## Define the Reckless2 mission success rate bonus.
 # Setting type: Single
-# Default value: -0.1
-Reckless2MissionSuccessRateBonus = -0.1
+# Default value: 0.05
+Reckless2MissionSuccessRateBonus = 0.05
 
 ## Define the Reckless2 mission injury chance bonus.
 # Setting type: Single
-# Default value: 0.3
-Reckless2MissionInjuryChance = 0.3
+# Default value: 0.25
+Reckless2MissionInjuryChance = 0.25
 
 ## Define the Reckless2 mission loot factor bonus.
 # Setting type: Single
@@ -123,19 +146,25 @@ Reckless2MissionLootFactor = 0.75
 EnableNormal1Settings = false
 
 ## Define the Normal1 mission length in seconds.
-# Setting type: Single
+# Setting type: Int32
 # Default value: 23400
 Normal1MissionLength = 23400
 
+## Define the Normal1 raid stability.
+# Setting type: RaidStability
+# Default value: Normal
+# Acceptable values: Reckless, Prepared, Normal
+Normal1RaidStability = Normal
+
 ## Define the Normal1 mission success rate bonus.
 # Setting type: Single
-# Default value: 0
-Normal1MissionSuccessRateBonus = 0
+# Default value: 0.1
+Normal1MissionSuccessRateBonus = 0.1
 
 ## Define the Normal1 mission injury chance bonus.
 # Setting type: Single
-# Default value: 0.25
-Normal1MissionInjuryChance = 0.25
+# Default value: 0.2
+Normal1MissionInjuryChance = 0.2
 
 ## Define the Normal1 mission loot factor bonus.
 # Setting type: Single
@@ -150,19 +179,25 @@ Normal1MissionLootFactor = 1
 EnablePrepared1Settings = false
 
 ## Define the Prepared1 mission length in seconds.
-# Setting type: Single
+# Setting type: Int32
 # Default value: 36000
 Prepared1MissionLength = 36000
 
+## Define the Prepared1 raid stability.
+# Setting type: RaidStability
+# Default value: Prepared
+# Acceptable values: Reckless, Prepared, Normal
+Prepared1RaidStability = Prepared
+
 ## Define the Prepared1 mission success rate bonus.
 # Setting type: Single
-# Default value: 0.1
-Prepared1MissionSuccessRateBonus = 0.1
+# Default value: 0.15
+Prepared1MissionSuccessRateBonus = 0.15
 
 ## Define the Prepared1 mission injury chance bonus.
 # Setting type: Single
-# Default value: 0.2
-Prepared1MissionInjuryChance = 0.2
+# Default value: 0.15
+Prepared1MissionInjuryChance = 0.15
 
 ## Define the Prepared1 mission loot factor bonus.
 # Setting type: Single
@@ -177,9 +212,15 @@ Prepared1MissionLootFactor = 1.25
 EnablePrepared2Settings = false
 
 ## Define the Prepared2 mission length in seconds.
-# Setting type: Single
+# Setting type: Int32
 # Default value: 57600
 Prepared2MissionLength = 57600
+
+## Define the Prepared2 raid stability.
+# Setting type: RaidStability
+# Default value: Prepared
+# Acceptable values: Reckless, Prepared, Normal
+Prepared2RaidStability = Prepared
 
 ## Define the Prepared2 mission success rate bonus.
 # Setting type: Single
@@ -188,8 +229,8 @@ Prepared2MissionSuccessRateBonus = 0.2
 
 ## Define the Prepared2 mission injury chance bonus.
 # Setting type: Single
-# Default value: 0.2
-Prepared2MissionInjuryChance = 0.2
+# Default value: 0.15
+Prepared2MissionInjuryChance = 0.15
 
 ## Define the Prepared2 mission loot factor bonus.
 # Setting type: Single
